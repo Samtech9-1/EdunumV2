@@ -1,0 +1,32 @@
+<!-- Note: Le fichier logo.png sera créé avec l'image que vous avez fournie -->
+<!-- Pour l'instant, je vais créer un placeholder SVG qui correspond au design de votre logo -->
+<svg width="120" height="60" viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background transparent -->
+  <rect width="120" height="60" fill="transparent"/>
+  
+  <!-- Éléments verts pixelisés (représentant la technologie) -->
+  <rect x="10" y="15" width="4" height="4" fill="#009639"/>
+  <rect x="16" y="15" width="4" height="4" fill="#009639"/>
+  <rect x="22" y="15" width="4" height="4" fill="#009639"/>
+  <rect x="10" y="21" width="4" height="4" fill="#009639"/>
+  <rect x="16" y="21" width="4" height="4" fill="#009639"/>
+  <rect x="22" y="21" width="4" height="4" fill="#009639"/>
+  <rect x="28" y="21" width="4" height="4" fill="#009639"/>
+  <rect x="10" y="27" width="4" height="4" fill="#009639"/>
+  <rect x="16" y="27" width="4" height="4" fill="#009639"/>
+  <rect x="22" y="27" width="4" height="4" fill="#009639"/>
+  <rect x="28" y="27" width="4" height="4" fill="#009639"/>
+  <rect x="34" y="27" width="4" height="4" fill="#009639"/>
+  
+  <!-- Forme rouge (livre/éducation) -->
+  <path d="M5 35 L25 35 L25 50 L20 45 L15 50 L10 45 L5 50 Z" fill="#ce1126"/>
+  
+  <!-- Courbe rouge dynamique -->
+  <path d="M30 40 Q40 35 50 40 Q60 45 70 40" stroke="#ce1126" stroke-width="3" fill="none"/>
+  
+  <!-- Texte EDU NUM -->
+  <text x="45" y="25" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#3b82f6">EDU NUM</text>
+  
+  <!-- Slogan -->
+  <text x="45" y="40" font-family="Arial, sans-serif" font-size="8" fill="#666">Bien qu'une simple réussite !</text>
+</svg>

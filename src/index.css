@@ -1,0 +1,566 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Variables CSS pour les couleurs professionnelles de la Guinée */
+:root {
+  /* Couleurs principales du drapeau guinéen - Version professionnelle */
+  --guinea-red: #b91c1c;
+  --guinea-yellow: #d97706;
+  --guinea-green: #047857;
+  
+  /* Variations des couleurs principales - Plus sophistiquées */
+  --guinea-red-light: #dc2626;
+  --guinea-red-dark: #991b1b;
+  --guinea-yellow-light: #f59e0b;
+  --guinea-yellow-dark: #b45309;
+  --guinea-green-light: #059669;
+  --guinea-green-dark: #065f46;
+  
+  /* Couleurs neutres professionnelles */
+  --neutral-50: #f8fafc;
+  --neutral-100: #f1f5f9;
+  --neutral-200: #e2e8f0;
+  --neutral-300: #cbd5e1;
+  --neutral-400: #94a3b8;
+  --neutral-500: #64748b;
+  --neutral-600: #475569;
+  --neutral-700: #334155;
+  --neutral-800: #1e293b;
+  --neutral-900: #0f172a;
+  --neutre-redef: #f6f6f6;
+  
+  /* Couleurs d'accent professionnelles */
+  --accent-blue: #1e40af;
+  --accent-purple: #7c3aed;
+  --accent-orange: #ea580c;
+  --accent-teal: #0f766e;
+  
+  /* Couleurs de fond sophistiquées */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-tertiary: #f1f5f9;
+  --bg-dark: #0f172a;
+  --bg-dark-secondary: #1e293b;
+  --bg-en-abonement: #f6f6f6;
+  
+  /* Ombres élégantes */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  
+  /* Transitions fluides */
+  --transition-fast: 150ms ease-in-out;
+  --transition-normal: 300ms ease-in-out;
+  --transition-slow: 500ms ease-in-out;
+}
+
+/* Classes utilitaires personnalisées */
+@layer utilities {
+  /* Couleurs de fond Guinea professionnelles */
+  .bg-guinea-red { background-color: var(--guinea-red); }
+  .bg-guinea-yellow { background-color: var(--guinea-yellow); }
+  .bg-guinea-green { background-color: var(--guinea-green); }
+  .bg-guinea-red-light { background-color: var(--guinea-red-light); }
+  .bg-guinea-yellow-light { background-color: var(--guinea-yellow-light); }
+  .bg-guinea-green-light { background-color: var(--guinea-green-light); }
+  
+  /* Couleurs de texte Guinea professionnelles */
+  .text-guinea-red { color: var(--guinea-red); }
+  .text-guinea-yellow { color: var(--guinea-yellow); }
+  .text-guinea-green { color: var(--guinea-green); }
+  .text-guinea-red-light { color: var(--guinea-red-light); }
+  .text-guinea-yellow-light { color: var(--guinea-yellow-light); }
+  .text-guinea-green-light { color: var(--guinea-green-light); }
+  
+  /* Couleurs de bordure Guinea professionnelles */
+  .border-guinea-red { border-color: var(--guinea-red); }
+  .border-guinea-yellow { border-color: var(--guinea-yellow); }
+  .border-guinea-green { border-color: var(--guinea-green); }
+  
+  /* Dégradés Guinea sophistiqués */
+  .bg-gradient-guinea {
+    background: linear-gradient(135deg, var(--guinea-red) 0%, var(--guinea-yellow) 50%, var(--guinea-green) 100%);
+  }
+  
+  .bg-gradient-guinea-subtle {
+    background: linear-gradient(135deg, 
+      rgba(185, 28, 28, 0.1) 0%, 
+      rgba(217, 119, 6, 0.1) 50%, 
+      rgba(4, 120, 87, 0.1) 100%);
+  }
+  
+  .bg-gradient-guinea-horizontal {
+    background: linear-gradient(90deg, var(--guinea-red) 0%, var(--guinea-yellow) 50%, var(--guinea-green) 100%);
+  }
+  
+  .bg-gradient-guinea-red {
+    background: linear-gradient(135deg, var(--guinea-red) 0%, var(--guinea-red-dark) 100%);
+  }
+  
+  .bg-gradient-guinea-yellow {
+    background: linear-gradient(135deg, var(--guinea-yellow) 0%, var(--guinea-yellow-dark) 100%);
+  }
+  
+  .bg-gradient-guinea-green {
+    background: linear-gradient(135deg, var(--guinea-green) 0%, var(--guinea-green-dark) 100%);
+  }
+  
+  /* Dégradés professionnels avec overlay */
+  .bg-gradient-professional {
+    background: linear-gradient(135deg, 
+      var(--neutral-800) 0%, 
+      var(--neutral-700) 50%, 
+      var(--neutral-600) 100%);
+  }
+  
+  .bg-gradient-professional-light {
+    background: linear-gradient(135deg, 
+      var(--neutral-50) 0%, 
+      var(--neutral-100) 50%, 
+      var(--neutral-200) 100%);
+  }
+  
+  /* Animations professionnelles */
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .animate-pulse-slow {
+    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  .animate-bounce-slow {
+    animation: bounce 3s infinite;
+  }
+  
+  /* Effets de survol professionnels */
+  .hover-guinea-red:hover {
+    background-color: var(--guinea-red);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .hover-guinea-yellow:hover {
+    background-color: var(--guinea-yellow);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .hover-guinea-green:hover {
+    background-color: var(--guinea-green);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  /* Cartes éducatives professionnelles */
+  .card-education {
+    @apply bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-neutral-200/50;
+  }
+  
+  .card-education-featured {
+    @apply card-education ring-2 ring-guinea-green/30 border-guinea-green/20;
+  }
+  
+  /* Boutons éducatifs professionnels */
+  .btn-primary-guinea {
+    @apply bg-gradient-guinea-green text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 transform hover:scale-[1.02] hover:shadow-guinea-green/25;
+  }
+  
+  .btn-secondary-guinea {
+    @apply border-2 border-guinea-green/80 text-guinea-green px-6 py-3 rounded-lg font-semibold hover:bg-guinea-green hover:text-white transition-all duration-300 hover:shadow-md;
+  }
+  
+  .btn-accent-guinea {
+    @apply bg-gradient-guinea-yellow text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 transform hover:scale-[1.02];
+  }
+  
+  .btn-professional {
+    @apply bg-neutral-800 text-white px-6 py-3 rounded-lg font-semibold hover:bg-neutral-700 transition-all duration-300 hover:shadow-lg;
+  }
+  
+  /* Sections éducatives professionnelles */
+  .section-education {
+    @apply py-20 relative overflow-hidden;
+  }
+  
+  .section-education-primary {
+    @apply section-education bg-gradient-to-br from-neutral-50 via-neutral-100 to-guinea-green/5;
+  }
+  
+  .section-education-secondary {
+    @apply section-education bg-gradient-to-br from-white to-neutral-50;
+  }
+  
+  .section-education-accent {
+    @apply section-education bg-gradient-guinea-subtle;
+  }
+  
+  .section-education-dark {
+    @apply section-education bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-700;
+  }
+  
+  /* Typographie éducative professionnelle */
+  .heading-primary {
+    @apply text-4xl lg:text-5xl font-bold text-neutral-800 mb-6 leading-tight;
+  }
+  
+  .heading-secondary {
+    @apply text-3xl lg:text-4xl font-bold text-neutral-700 mb-4;
+  }
+  
+  .heading-tertiary {
+    @apply text-2xl lg:text-3xl font-semibold text-neutral-600 mb-3;
+  }
+  
+  .text-education {
+    @apply text-lg text-neutral-600 leading-relaxed;
+  }
+  
+  .text-education-muted {
+    @apply text-base text-neutral-500 leading-relaxed;
+  }
+  
+  /* Formulaires éducatifs professionnels */
+  .form-input-guinea {
+    @apply w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-guinea-green/50 focus:border-guinea-green transition-all bg-white placeholder-neutral-400;
+  }
+  
+  .form-label-guinea {
+    @apply block text-sm font-medium text-neutral-700 mb-2;
+  }
+  
+  /* Navigation éducative professionnelle */
+  .nav-link-guinea {
+    @apply text-neutral-600 hover:text-guinea-green font-medium transition-colors duration-300;
+  }
+  
+  .nav-link-active-guinea {
+    @apply text-guinea-green font-semibold;
+  }
+  
+  /* Badges éducatifs professionnels */
+  .badge-success {
+    @apply bg-guinea-green/10 text-guinea-green px-3 py-1 rounded-full text-sm font-semibold border border-guinea-green/20;
+  }
+  
+  .badge-warning {
+    @apply bg-guinea-yellow/10 text-guinea-yellow px-3 py-1 rounded-full text-sm font-semibold border border-guinea-yellow/20;
+  }
+  
+  .badge-info {
+    @apply bg-accent-blue/10 text-accent-blue px-3 py-1 rounded-full text-sm font-semibold border border-accent-blue/20;
+  }
+  
+  .badge-neutral {
+    @apply bg-neutral-100 text-neutral-600 px-3 py-1 rounded-full text-sm font-semibold border border-neutral-200;
+  }
+  
+  /* Indicateurs de progression professionnels */
+  .progress-bar-guinea {
+    @apply w-full bg-neutral-200 rounded-full h-2;
+  }
+  
+  .progress-fill-guinea {
+    @apply bg-gradient-guinea-green h-2 rounded-full transition-all duration-500;
+  }
+}
+
+/* Animations professionnelles */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Classes d'animation */
+.animate-slide-in-up {
+  animation: slideInUp 0.6s ease-out;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.6s ease-out;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.6s ease-out;
+}
+
+/* Styles pour les éléments éducatifs spécifiques */
+.course-card {
+  @apply card-education cursor-pointer;
+}
+
+.course-card:hover .course-image {
+  @apply scale-105;
+}
+
+.instructor-card {
+  @apply card-education text-center;
+}
+
+.subscription-card {
+  @apply bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-[1.02] transition-all duration-300 border border-neutral-200/50;
+}
+
+.subscription-card-popular {
+  @apply subscription-card ring-2 ring-guinea-green/30 border-guinea-green/20;
+}
+
+/* Responsive design amélioré */
+@media (max-width: 768px) {
+  .heading-primary {
+    @apply text-3xl;
+  }
+  
+  .heading-secondary {
+    @apply text-2xl;
+  }
+  
+  .section-education {
+    @apply py-12;
+  }
+}
+
+/* Accessibilité améliorée */
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .animate-pulse-slow,
+  .animate-bounce-slow,
+  .animate-slide-in-up,
+  .animate-slide-in-left,
+  .animate-slide-in-right {
+    animation: none;
+  }
+  
+  .transform,
+  .hover\:scale-105,
+  .hover\:-translate-y-2 {
+    transform: none !important;
+  }
+}
+
+/* Focus states pour l'accessibilité */
+.focus\:ring-guinea-green:focus {
+  --tw-ring-color: rgba(4, 120, 87, 0.5);
+}
+
+.focus\:border-guinea-green:focus {
+  border-color: var(--guinea-green);
+}
+
+/* Styles pour le logo */
+.logo-container {
+  @apply flex items-center space-x-3;
+}
+
+.logo-image {
+  @apply h-10 w-auto;
+}
+
+.logo-text {
+  @apply text-2xl font-bold text-neutral-800;
+}
+
+/* Styles pour les sections de contenu */
+.content-section {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.content-grid {
+  @apply grid gap-8;
+}
+
+.content-grid-2 {
+  @apply content-grid lg:grid-cols-2;
+}
+
+.content-grid-3 {
+  @apply content-grid lg:grid-cols-3;
+}
+
+.content-grid-4 {
+  @apply content-grid lg:grid-cols-4;
+}
+
+/* Styles pour les overlays et modals */
+.overlay {
+  @apply fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50;
+}
+
+.modal {
+  @apply bg-white rounded-xl p-8 text-center max-w-md mx-4 shadow-2xl border border-neutral-200;
+}
+
+/* Styles pour les états de chargement */
+.loading-spinner {
+  @apply animate-spin rounded-full border-b-2 border-current;
+}
+
+.loading-dots::after {
+  content: '';
+  animation: dots 1.5s steps(5, end) infinite;
+}
+
+@keyframes dots {
+  0%, 20% {
+    color: rgba(0,0,0,0);
+    text-shadow:
+      .25em 0 0 rgba(0,0,0,0),
+      .5em 0 0 rgba(0,0,0,0);
+  }
+  40% {
+    color: var(--guinea-green);
+    text-shadow:
+      .25em 0 0 rgba(0,0,0,0),
+      .5em 0 0 rgba(0,0,0,0);
+  }
+  60% {
+    text-shadow:
+      .25em 0 0 var(--guinea-yellow),
+      .5em 0 0 rgba(0,0,0,0);
+  }
+  80%, 100% {
+    text-shadow:
+      .25em 0 0 var(--guinea-yellow),
+      .5em 0 0 var(--guinea-red);
+  }
+}
+
+/* Styles spéciaux pour le slogan */
+.slogan-text {
+  @apply text-lg font-medium text-neutral-600 italic;
+}
+
+/* Styles pour les éléments interactifs */
+.interactive-element {
+  @apply transition-all duration-300 transform hover:scale-[1.02] cursor-pointer;
+}
+
+/* Styles pour les cartes de fonctionnalités */
+.feature-card {
+  @apply bg-white/80 backdrop-blur-sm p-6 rounded-xl border border-white/30 hover:bg-white/90 transition-all duration-300 shadow-sm hover:shadow-md;
+}
+
+/* Styles pour les boutons de navigation */
+.nav-button {
+  @apply px-4 py-2 rounded-lg font-medium transition-all duration-300;
+}
+
+.nav-button-primary {
+  @apply nav-button bg-gradient-guinea-green text-white hover:shadow-lg transform hover:scale-[1.02];
+}
+
+.nav-button-secondary {
+  @apply nav-button border-2 border-guinea-green/80 text-guinea-green hover:bg-guinea-green hover:text-white;
+}
+
+/* Styles pour les sections avec fond coloré */
+.colored-section {
+  @apply relative overflow-hidden;
+}
+
+.colored-section::before {
+  content: '';
+  @apply absolute inset-0 bg-gradient-guinea-subtle;
+}
+
+/* Styles pour les éléments flottants */
+.floating-element {
+  @apply absolute opacity-10 animate-float;
+}
+
+/* Styles pour les indicateurs de statut */
+.status-indicator {
+  @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium;
+}
+
+.status-success {
+  @apply status-indicator bg-guinea-green/10 text-guinea-green border border-guinea-green/20;
+}
+
+.status-warning {
+  @apply status-indicator bg-guinea-yellow/10 text-guinea-yellow border border-guinea-yellow/20;
+}
+
+.status-error {
+  @apply status-indicator bg-guinea-red/10 text-guinea-red border border-guinea-red/20;
+}
+
+/* Styles pour les surfaces élevées */
+.surface-elevated {
+  @apply bg-white shadow-lg rounded-xl border border-neutral-200/50;
+}
+
+.surface-elevated-high {
+  @apply bg-white shadow-xl rounded-xl border border-neutral-200/50;
+}
+
+/* Styles pour les conteneurs de contenu */
+.content-container {
+  @apply bg-white rounded-xl p-6 shadow-sm border border-neutral-200/50;
+}
+
+.content-container-dark {
+  @apply bg-neutral-800 rounded-xl p-6 shadow-sm border border-neutral-700/50 text-white;
+}
+
+/* Styles pour les séparateurs */
+.divider {
+  @apply border-t border-neutral-200 my-6;
+}
+
+.divider-dark {
+  @apply border-t border-neutral-700 my-6;
+}
+
+/* Styles pour les highlights */
+.highlight-guinea {
+  @apply bg-gradient-to-r from-guinea-green/10 to-guinea-yellow/10 px-4 py-2 rounded-lg border-l-4 border-guinea-green;
+}
+
+/* Styles pour les call-to-action */
+.cta-section {
+  @apply bg-gradient-to-br from-guinea-green/5 to-guinea-yellow/5 p-8 rounded-xl border border-guinea-green/20;
+}
