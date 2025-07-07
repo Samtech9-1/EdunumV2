@@ -178,14 +178,14 @@ const CreerUnCompte: React.FC<CreerUnCompteProps> = ({ isEmbedded = false }) => 
 
   const isFormValid = (): boolean => {
     const requiredFields = ['nom', 'prenom', 'email', 'confirmEmail', 'telephone', 'password', 'confirmPassword'];
-    const hasAllFields = requiredFields.every(field => formData[field as keyof FormData]) && formData.grade;
+    const hasAllFields = requiredFields.every(field => formData[field as keyof FormData]) && formData.grade !== null;
     const hasNoErrors = Object.keys(errors).length === 0;
     return hasAllFields && hasNoErrors;
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
-    
+
     if (!isFormValid()) return;
 
     const submitData = {
@@ -193,7 +193,7 @@ const CreerUnCompte: React.FC<CreerUnCompteProps> = ({ isEmbedded = false }) => 
       profil: 'Eleve',
       gradeId: formData.grade?.value
     };
-    
+
     // Remove fields that shouldn't be sent to API
     const { grade, confirmEmail, confirmPassword, ...apiData } = submitData;
 
@@ -242,40 +242,36 @@ const CreerUnCompte: React.FC<CreerUnCompteProps> = ({ isEmbedded = false }) => 
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Nom et Prénom */}
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <div className="relative">
-                <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-neutral-400" />
-                <input
-                  type="text"
-                  name="nom"
-                  value={formData.nom}
-                  onChange={handleInputChange}
-                  placeholder="Nom"
-                  className={`w-full pl-9 pr-3 py-2.5 text-sm border rounded-lg focus:ring-2 focus:ring-guinea-green focus:border-guinea-green transition-colors ${
-                    errors.nom ? 'border-guinea-red' : 'border-neutral-300'
+          <div>
+            <div className="relative">
+              <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-neutral-400" />
+              <input
+                type="text"
+                name="nom"
+                value={formData.nom}
+                onChange={handleInputChange}
+                placeholder="Nom"
+                className={`w-full pl-9 pr-3 py-2.5 text-sm border rounded-lg focus:ring-2 focus:ring-guinea-green focus:border-guinea-green transition-colors ${errors.nom ? 'border-guinea-red' : 'border-neutral-300'
                   }`}
-                />
-              </div>
-              {errors.nom && <p className="text-guinea-red text-xs mt-1">{errors.nom}</p>}
+              />
             </div>
+            {errors.nom && <p className="text-guinea-red text-xs mt-1">{errors.nom}</p>}
+          </div>
 
-            <div>
-              <div className="relative">
-                <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-neutral-400" />
-                <input
-                  type="text"
-                  name="prenom"
-                  value={formData.prenom}
-                  onChange={handleInputChange}
-                  placeholder="Prénom"
-                  className={`w-full pl-9 pr-3 py-2.5 text-sm border rounded-lg focus:ring-2 focus:ring-guinea-green focus:border-guinea-green transition-colors ${
-                    errors.prenom ? 'border-guinea-red' : 'border-neutral-300'
+          <div>
+            <div className="relative">
+              <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-neutral-400" />
+              <input
+                type="text"
+                name="prenom"
+                value={formData.prenom}
+                onChange={handleInputChange}
+                placeholder="Prénom"
+                className={`w-full pl-9 pr-3 py-2.5 text-sm border rounded-lg focus:ring-2 focus:ring-guinea-green focus:border-guinea-green transition-colors ${errors.prenom ? 'border-guinea-red' : 'border-neutral-300'
                   }`}
-                />
-              </div>
-              {errors.prenom && <p className="text-guinea-red text-xs mt-1">{errors.prenom}</p>}
+              />
             </div>
+            {errors.prenom && <p className="text-guinea-red text-xs mt-1">{errors.prenom}</p>}
           </div>
 
           {/* Grade */}
@@ -301,9 +297,8 @@ const CreerUnCompte: React.FC<CreerUnCompteProps> = ({ isEmbedded = false }) => 
                 value={formData.telephone}
                 onChange={handleInputChange}
                 placeholder="Téléphone (ex: 623456789)"
-                className={`w-full pl-9 pr-3 py-2.5 text-sm border rounded-lg focus:ring-2 focus:ring-guinea-green focus:border-guinea-green transition-colors ${
-                  errors.telephone ? 'border-guinea-red' : 'border-neutral-300'
-                }`}
+                className={`w-full pl-9 pr-3 py-2.5 text-sm border rounded-lg focus:ring-2 focus:ring-guinea-green focus:border-guinea-green transition-colors ${errors.telephone ? 'border-guinea-red' : 'border-neutral-300'
+                  }`}
               />
             </div>
             {errors.telephone && <p className="text-guinea-red text-xs mt-1">{errors.telephone}</p>}
@@ -319,9 +314,8 @@ const CreerUnCompte: React.FC<CreerUnCompteProps> = ({ isEmbedded = false }) => 
                 value={formData.email}
                 onChange={handleInputChange}
                 placeholder="Email"
-                className={`w-full pl-9 pr-3 py-2.5 text-sm border rounded-lg focus:ring-2 focus:ring-guinea-green focus:border-guinea-green transition-colors ${
-                  errors.email ? 'border-guinea-red' : 'border-neutral-300'
-                }`}
+                className={`w-full pl-9 pr-3 py-2.5 text-sm border rounded-lg focus:ring-2 focus:ring-guinea-green focus:border-guinea-green transition-colors ${errors.email ? 'border-guinea-red' : 'border-neutral-300'
+                  }`}
               />
             </div>
             {errors.email && <p className="text-guinea-red text-xs mt-1">{errors.email}</p>}
@@ -337,9 +331,8 @@ const CreerUnCompte: React.FC<CreerUnCompteProps> = ({ isEmbedded = false }) => 
                 value={formData.confirmEmail}
                 onChange={handleInputChange}
                 placeholder="Confirmer Email"
-                className={`w-full pl-9 pr-3 py-2.5 text-sm border rounded-lg focus:ring-2 focus:ring-guinea-green focus:border-guinea-green transition-colors ${
-                  errors.confirmEmail ? 'border-guinea-red' : 'border-neutral-300'
-                }`}
+                className={`w-full pl-9 pr-3 py-2.5 text-sm border rounded-lg focus:ring-2 focus:ring-guinea-green focus:border-guinea-green transition-colors ${errors.confirmEmail ? 'border-guinea-red' : 'border-neutral-300'
+                  }`}
               />
             </div>
             {errors.confirmEmail && <p className="text-guinea-red text-xs mt-1">{errors.confirmEmail}</p>}
@@ -354,9 +347,8 @@ const CreerUnCompte: React.FC<CreerUnCompteProps> = ({ isEmbedded = false }) => 
                 value={formData.password}
                 onChange={handleInputChange}
                 placeholder="Créer un mot de passe"
-                className={`w-full pl-3 pr-10 py-2.5 text-sm border rounded-lg focus:ring-2 focus:ring-guinea-green focus:border-guinea-green transition-colors ${
-                  errors.password ? 'border-guinea-red' : 'border-neutral-300'
-                }`}
+                className={`w-full pl-3 pr-10 py-2.5 text-sm border rounded-lg focus:ring-2 focus:ring-guinea-green focus:border-guinea-green transition-colors ${errors.password ? 'border-guinea-red' : 'border-neutral-300'
+                  }`}
               />
               <button
                 type="button"
@@ -378,9 +370,8 @@ const CreerUnCompte: React.FC<CreerUnCompteProps> = ({ isEmbedded = false }) => 
                 value={formData.confirmPassword}
                 onChange={handleInputChange}
                 placeholder="Confirmer le mot de passe"
-                className={`w-full pl-3 pr-10 py-2.5 text-sm border rounded-lg focus:ring-2 focus:ring-guinea-green focus:border-guinea-green transition-colors ${
-                  errors.confirmPassword ? 'border-guinea-red' : 'border-neutral-300'
-                }`}
+                className={`w-full pl-3 pr-10 py-2.5 text-sm border rounded-lg focus:ring-2 focus:ring-guinea-green focus:border-guinea-green transition-colors ${errors.confirmPassword ? 'border-guinea-red' : 'border-neutral-300'
+                  }`}
               />
               <button
                 type="button"
@@ -397,11 +388,10 @@ const CreerUnCompte: React.FC<CreerUnCompteProps> = ({ isEmbedded = false }) => 
           <button
             type="submit"
             disabled={!isFormValid() || isSubmitting}
-            className={`w-full py-3 px-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center space-x-2 ${
-              isFormValid() && !isSubmitting
+            className={`w-full py-3 px-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center space-x-2 ${isFormValid() && !isSubmitting
                 ? 'bg-gradient-guinea-green text-white hover:shadow-lg transform hover:scale-105'
                 : 'bg-neutral-300 text-neutral-500 cursor-not-allowed'
-            }`}
+              }`}
           >
             {isSubmitting ? (
               <>
@@ -436,37 +426,37 @@ const CreerUnCompte: React.FC<CreerUnCompteProps> = ({ isEmbedded = false }) => 
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
             <button onClick={handleHomeClick} className="flex items-center space-x-3">
-              <img 
+              <img
                 src={logoEduNum}
-                alt="EDU NUM Logo" 
+                alt="EDU NUM Logo"
                 className="h-10 w-auto"
               />
             </button>
 
             {/* Navigation Links */}
             <nav className="hidden md:flex items-center space-x-8">
-              <button 
+              <button
                 onClick={handleHomeClick}
                 className="text-neutral-600 hover:text-guinea-green font-medium transition-colors duration-300"
               >
                 <Home className="h-4 w-4 inline mr-2" />
                 Accueil
               </button>
-              <button 
+              <button
                 onClick={() => handleScrollToSection('cours')}
                 className="text-neutral-600 hover:text-guinea-green font-medium transition-colors duration-300"
               >
                 <BookOpen className="h-4 w-4 inline mr-2" />
                 Cours
               </button>
-              <button 
+              <button
                 onClick={() => handleScrollToSection('abonnements')}
                 className="text-neutral-600 hover:text-guinea-green font-medium transition-colors duration-300"
               >
                 <CreditCard className="h-4 w-4 inline mr-2" />
                 Abonnements
               </button>
-              <button 
+              <button
                 onClick={handleContactClick}
                 className="text-neutral-600 hover:text-guinea-green font-medium transition-colors duration-300"
               >
@@ -476,7 +466,7 @@ const CreerUnCompte: React.FC<CreerUnCompteProps> = ({ isEmbedded = false }) => 
             </nav>
 
             {/* Auth Button */}
-            <button 
+            <button
               onClick={handleLoginClick}
               className="bg-guinea-green text-white px-4 py-2 rounded-lg hover:bg-guinea-green-dark transition-all duration-300 transform hover:scale-105"
             >
@@ -521,8 +511,7 @@ const CreerUnCompte: React.FC<CreerUnCompteProps> = ({ isEmbedded = false }) => 
             {/* Form */}
             <div className="px-8 pb-8">
               <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Nom et Prénom */}
-                <div className="grid grid-cols-2 gap-4">
+                {/* Nom et Prénom */}                
                   <div>
                     <div className="relative">
                       <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-neutral-400" />
@@ -532,9 +521,8 @@ const CreerUnCompte: React.FC<CreerUnCompteProps> = ({ isEmbedded = false }) => 
                         value={formData.nom}
                         onChange={handleInputChange}
                         placeholder="Nom"
-                        className={`w-full pl-10 pr-4 py-3 bg-white border border-neutral-300 rounded-xl text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent transition-all ${
-                          errors.nom ? 'border-guinea-red' : ''
-                        }`}
+                        className={`w-full pl-10 pr-4 py-3 bg-white border border-neutral-300 rounded-xl text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent transition-all ${errors.nom ? 'border-guinea-red' : ''
+                          }`}
                       />
                     </div>
                     {errors.nom && <p className="text-guinea-red text-sm mt-1">{errors.nom}</p>}
@@ -549,14 +537,13 @@ const CreerUnCompte: React.FC<CreerUnCompteProps> = ({ isEmbedded = false }) => 
                         value={formData.prenom}
                         onChange={handleInputChange}
                         placeholder="Prénom"
-                        className={`w-full pl-10 pr-4 py-3 bg-white border border-neutral-300 rounded-xl text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent transition-all ${
-                          errors.prenom ? 'border-guinea-red' : ''
-                        }`}
+                        className={`w-full pl-10 pr-4 py-3 bg-white border border-neutral-300 rounded-xl text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent transition-all ${errors.prenom ? 'border-guinea-red' : ''
+                          }`}
                       />
                     </div>
                     {errors.prenom && <p className="text-guinea-red text-sm mt-1">{errors.prenom}</p>}
                   </div>
-                </div>
+                
 
                 {/* Grade */}
                 <div>
@@ -581,9 +568,8 @@ const CreerUnCompte: React.FC<CreerUnCompteProps> = ({ isEmbedded = false }) => 
                       value={formData.telephone}
                       onChange={handleInputChange}
                       placeholder="Téléphone (ex: 623456789)"
-                      className={`w-full pl-10 pr-4 py-3 bg-white border border-neutral-300 rounded-xl text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent transition-all ${
-                        errors.telephone ? 'border-guinea-red' : ''
-                      }`}
+                      className={`w-full pl-10 pr-4 py-3 bg-white border border-neutral-300 rounded-xl text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent transition-all ${errors.telephone ? 'border-guinea-red' : ''
+                        }`}
                     />
                   </div>
                   {errors.telephone && <p className="text-guinea-red text-sm mt-1">{errors.telephone}</p>}
@@ -599,9 +585,8 @@ const CreerUnCompte: React.FC<CreerUnCompteProps> = ({ isEmbedded = false }) => 
                       value={formData.email}
                       onChange={handleInputChange}
                       placeholder="Email"
-                      className={`w-full pl-10 pr-4 py-3 bg-white border border-neutral-300 rounded-xl text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent transition-all ${
-                        errors.email ? 'border-guinea-red' : ''
-                      }`}
+                      className={`w-full pl-10 pr-4 py-3 bg-white border border-neutral-300 rounded-xl text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent transition-all ${errors.email ? 'border-guinea-red' : ''
+                        }`}
                     />
                   </div>
                   {errors.email && <p className="text-guinea-red text-sm mt-1">{errors.email}</p>}
@@ -617,9 +602,8 @@ const CreerUnCompte: React.FC<CreerUnCompteProps> = ({ isEmbedded = false }) => 
                       value={formData.confirmEmail}
                       onChange={handleInputChange}
                       placeholder="Confirmer Email"
-                      className={`w-full pl-10 pr-4 py-3 bg-white border border-neutral-300 rounded-xl text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent transition-all ${
-                        errors.confirmEmail ? 'border-guinea-red' : ''
-                      }`}
+                      className={`w-full pl-10 pr-4 py-3 bg-white border border-neutral-300 rounded-xl text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent transition-all ${errors.confirmEmail ? 'border-guinea-red' : ''
+                        }`}
                     />
                   </div>
                   {errors.confirmEmail && <p className="text-guinea-red text-sm mt-1">{errors.confirmEmail}</p>}
@@ -634,9 +618,8 @@ const CreerUnCompte: React.FC<CreerUnCompteProps> = ({ isEmbedded = false }) => 
                       value={formData.password}
                       onChange={handleInputChange}
                       placeholder="Mot de passe (min. 8 caractères)"
-                      className={`w-full px-4 py-3 bg-white border border-neutral-300 rounded-xl text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent transition-all pr-12 ${
-                        errors.password ? 'border-guinea-red' : ''
-                      }`}
+                      className={`w-full px-4 py-3 bg-white border border-neutral-300 rounded-xl text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent transition-all pr-12 ${errors.password ? 'border-guinea-red' : ''
+                        }`}
                     />
                     <button
                       type="button"
@@ -658,9 +641,8 @@ const CreerUnCompte: React.FC<CreerUnCompteProps> = ({ isEmbedded = false }) => 
                       value={formData.confirmPassword}
                       onChange={handleInputChange}
                       placeholder="Confirmer le mot de passe"
-                      className={`w-full px-4 py-3 bg-white border border-neutral-300 rounded-xl text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent transition-all pr-12 ${
-                        errors.confirmPassword ? 'border-guinea-red' : ''
-                      }`}
+                      className={`w-full px-4 py-3 bg-white border border-neutral-300 rounded-xl text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent transition-all pr-12 ${errors.confirmPassword ? 'border-guinea-red' : ''
+                        }`}
                     />
                     <button
                       type="button"
@@ -677,11 +659,10 @@ const CreerUnCompte: React.FC<CreerUnCompteProps> = ({ isEmbedded = false }) => 
                 <button
                   type="submit"
                   disabled={!isFormValid() || isSubmitting}
-                  className={`w-full py-3 px-6 rounded-xl font-semibold text-lg transition-all duration-300 flex items-center justify-center space-x-2 ${
-                    isFormValid() && !isSubmitting
+                  className={`w-full py-3 px-6 rounded-xl font-semibold text-lg transition-all duration-300 flex items-center justify-center space-x-2 ${isFormValid() && !isSubmitting
                       ? 'bg-guinea-green text-white hover:bg-guinea-green-dark'
                       : 'bg-neutral-300 text-neutral-500 cursor-not-allowed'
-                  }`}
+                    }`}
                 >
                   {isSubmitting ? (
                     <>

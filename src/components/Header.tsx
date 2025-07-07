@@ -28,7 +28,11 @@ const Header = () => {
     }
   };
 
-  const handleScrollToSection = (sectionId) => {
+  interface ScrollToSectionHandler {
+    (sectionId: string): void;
+  }
+
+  const handleScrollToSection: ScrollToSectionHandler = (sectionId) => {
     const section = document.getElementById(sectionId);
     if (section) {
       section.scrollIntoView({ behavior: 'smooth' });
