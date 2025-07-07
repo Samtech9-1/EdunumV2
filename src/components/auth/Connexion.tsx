@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { LogIn, Mail, Lock, Eye, EyeOff, User, AlertCircle, CheckCircle } from 'lucide-react';
-import logoEduNum from '../common/images/eduNum.png';
+import logoEduNum from '../common/Images/eduNum.png';
 import { UserService } from '../../services/UserService';
 import { PROFILE } from '../../utils/constants';
 

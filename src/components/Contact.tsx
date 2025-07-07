@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Send, CheckCircle, User, MessageSquare } from 'lucide-react';
-import logoEduNum from './common/images/eduNum.png';
+import logoEduNum from './common/Images/eduNum.png';
 
 const Contact = () => {
   const [formData, setFormData] = useState({

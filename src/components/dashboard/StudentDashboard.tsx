@@ -3,7 +3,7 @@ import { UserService } from '../../services/UserService';
 import StudentProfile from './StudentProfile';
 import CourseDetailPage from './CourseDetailPage';
 import SubscriptionPage from './SubscriptionPage';
-import logoEduNum from '../common/images/eduNum.png';
+import logoEduNum from '../common/Images/eduNum.png';
 import { 
   Play, 
   BookOpen, 

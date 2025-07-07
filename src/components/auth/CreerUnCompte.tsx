@@ -3,7 +3,7 @@ import { UserPlus, Loader as Spinner, CheckCircle, Mail, Phone, User, Eye, EyeOf
 import { UserService } from '../../services/UserService';
 import { NIVEAUURL } from '../../utils/urls';
 import CustomSelect from '../common/CustomSelect';
-import logoEduNum from '../common/images/eduNum.png';
+import logoEduNum from '../common/Images/eduNum.png';
 
 interface FormData {
   nom: string;

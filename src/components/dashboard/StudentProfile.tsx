@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { UserService } from '../../services/UserService';
-import logoEduNum from '../common/images/eduNum.png';
+import logoEduNum from '../common/Images/eduNum.png';
 import { 
   User, 
   Edit3, 

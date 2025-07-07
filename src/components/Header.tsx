@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Menu, X, User, LogIn } from 'lucide-react';
-import logoEduNum from './common/images/eduNum.png';
+import logoEduNum from './common/Images/eduNum.png';
 
 
 const Header = () => {

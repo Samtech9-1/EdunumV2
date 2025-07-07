@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Mail, ArrowLeft, CheckCircle, AlertCircle, Send } from 'lucide-react';
-import logoEduNum from '../common/images/eduNum.png';
+import logoEduNum from '../common/Images/eduNum.png';
 
 const MotDePasseOublie = () => {
   const [email, setEmail] = useState('');

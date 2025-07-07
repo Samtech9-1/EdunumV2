@@ -1,6 +1,6 @@
 import React from 'react';
 import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
-import logoEduNum from './common/images/eduNum.png';
+import logoEduNum from './common/Images/eduNum.png';
 
 const Footer = () => {
   const handleScrollToSection = (sectionId) => {
