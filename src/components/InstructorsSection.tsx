@@ -5,7 +5,7 @@ const instructors = [
   {
     id: 1,
     name: "Dr. Mamadou Diallo",
-    title: "Expert en Développement Web",
+    title: "Profs de mathématiques",
     description: "Plus de 10 ans d'expérience dans le développement web. Ancien ingénieur chez Google, maintenant dévoué à l'éducation en Guinée.",
     image: "https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=400",
     courses: 8,
