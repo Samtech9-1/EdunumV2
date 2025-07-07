@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { UserPlus, Loader as Spinner, CheckCircle, Mail, Phone, User, Eye, EyeOff, ArrowLeft } from 'lucide-react';
+import { UserPlus, Loader as Spinner, CheckCircle, Mail, Phone, User, Eye, EyeOff, ArrowLeft, Home, BookOpen, CreditCard, MessageCircle } from 'lucide-react';
 import { UserService } from '../../services/UserService';
 import { NIVEAUURL } from '../../utils/urls';
 import CustomSelect from '../common/CustomSelect';
@@ -43,6 +43,23 @@ const CreerUnCompte: React.FC<CreerUnCompteProps> = ({ isEmbedded = false }) => 
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
+
+  // Navigation functions
+  const handleScrollToSection = (sectionId: string) => {
+    window.location.href = `/#${sectionId}`;
+  };
+
+  const handleContactClick = () => {
+    window.location.href = '/contact';
+  };
+
+  const handleHomeClick = () => {
+    window.location.href = '/';
+  };
+
+  const handleLoginClick = () => {
+    window.location.href = '/login';
+  };
 
   // Validation functions
   const validateField = (name: string, value: string | { value: string; label: string } | null): void => {
@@ -203,14 +220,6 @@ const CreerUnCompte: React.FC<CreerUnCompteProps> = ({ isEmbedded = false }) => 
     } finally {
       setIsSubmitting(false);
     }
-  };
-
-  const handleBackToLogin = (): void => {
-    window.location.href = '/login';
-  };
-
-  const handleHomeClick = (): void => {
-    window.location.href = '/';
   };
 
   // If embedded, return only the form without the full page layout
@@ -420,7 +429,63 @@ const CreerUnCompte: React.FC<CreerUnCompteProps> = ({ isEmbedded = false }) => 
 
   // Full page layout for standalone registration page
   return (
-    <div className="min-h-screen bg-gradient-guinea py-12 px-4">
+    <div className="min-h-screen bg-neutral-50">
+      {/* Navigation Header */}
+      <header className="bg-white/95 backdrop-blur-sm shadow-sm sticky top-0 z-50 border-b border-neutral-200/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            {/* Logo */}
+            <button onClick={handleHomeClick} className="flex items-center space-x-3">
+              <img 
+                src={logoEduNum}
+                alt="EDU NUM Logo" 
+                className="h-10 w-auto"
+              />
+            </button>
+
+            {/* Navigation Links */}
+            <nav className="hidden md:flex items-center space-x-8">
+              <button 
+                onClick={handleHomeClick}
+                className="text-neutral-600 hover:text-guinea-green font-medium transition-colors duration-300"
+              >
+                <Home className="h-4 w-4 inline mr-2" />
+                Accueil
+              </button>
+              <button 
+                onClick={() => handleScrollToSection('cours')}
+                className="text-neutral-600 hover:text-guinea-green font-medium transition-colors duration-300"
+              >
+                <BookOpen className="h-4 w-4 inline mr-2" />
+                Cours
+              </button>
+              <button 
+                onClick={() => handleScrollToSection('abonnements')}
+                className="text-neutral-600 hover:text-guinea-green font-medium transition-colors duration-300"
+              >
+                <CreditCard className="h-4 w-4 inline mr-2" />
+                Abonnements
+              </button>
+              <button 
+                onClick={handleContactClick}
+                className="text-neutral-600 hover:text-guinea-green font-medium transition-colors duration-300"
+              >
+                <MessageCircle className="h-4 w-4 inline mr-2" />
+                Contact
+              </button>
+            </nav>
+
+            {/* Auth Button */}
+            <button 
+              onClick={handleLoginClick}
+              className="bg-guinea-green text-white px-4 py-2 rounded-lg hover:bg-guinea-green-dark transition-all duration-300 transform hover:scale-105"
+            >
+              Se Connecter
+            </button>
+          </div>
+        </div>
+      </header>
+
       {/* Success Overlay */}
       {showOverlay && (
         <div className="overlay">
@@ -435,30 +500,26 @@ const CreerUnCompte: React.FC<CreerUnCompteProps> = ({ isEmbedded = false }) => 
         </div>
       )}
 
-      <div className="max-w-6xl mx-auto">
-        <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
-          <div className="grid lg:grid-cols-2">
-            {/* Left side - Form */}
-            <div className="p-8 lg:p-12">
-              <div className="mb-8">
-                <button 
-                  onClick={handleHomeClick}
-                  className="inline-flex items-center space-x-3 mb-6 text-neutral-600 hover:text-guinea-green transition-colors"
+      {/* Main Content */}
+      <div className="flex items-center justify-center p-4 py-12">
+        <div className="w-full max-w-md">
+          <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl border border-white/50 overflow-hidden">
+            {/* Header */}
+            <div className="p-8 text-center">
+              <h1 className="text-3xl font-bold text-neutral-900 mb-2">Créer un compte</h1>
+              <div className="flex items-center justify-center space-x-2 text-neutral-600 mb-8">
+                <span>Vous avez déjà un compte?</span>
+                <button
+                  onClick={handleLoginClick}
+                  className="text-sm text-blue-600 hover:text-blue-800 transition-colors underline"
                 >
-                  <img 
-                    src={logoEduNum}
-                    alt="EDU NUM Logo" 
-                    className="h-10 w-auto"
-                  />                  
+                  Connectez-vous
                 </button>
-
-                <h1 className="text-3xl font-bold text-neutral-900 mb-2">Création de compte</h1>
-                <p className="text-neutral-600">
-                  Pour créer votre compte, veuillez renseigner les informations suivantes 
-                  puis cliquer sur le bouton "Créer mon compte".
-                </p>
               </div>
+            </div>
 
+            {/* Form */}
+            <div className="px-8 pb-8">
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Nom et Prénom */}
                 <div className="grid grid-cols-2 gap-4">
@@ -471,7 +532,7 @@ const CreerUnCompte: React.FC<CreerUnCompteProps> = ({ isEmbedded = false }) => 
                         value={formData.nom}
                         onChange={handleInputChange}
                         placeholder="Nom"
-                        className={`form-input-guinea pl-10 ${
+                        className={`w-full pl-10 pr-4 py-3 bg-white border border-neutral-300 rounded-xl text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent transition-all ${
                           errors.nom ? 'border-guinea-red' : ''
                         }`}
                       />
@@ -488,7 +549,7 @@ const CreerUnCompte: React.FC<CreerUnCompteProps> = ({ isEmbedded = false }) => 
                         value={formData.prenom}
                         onChange={handleInputChange}
                         placeholder="Prénom"
-                        className={`form-input-guinea pl-10 ${
+                        className={`w-full pl-10 pr-4 py-3 bg-white border border-neutral-300 rounded-xl text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent transition-all ${
                           errors.prenom ? 'border-guinea-red' : ''
                         }`}
                       />
@@ -501,11 +562,11 @@ const CreerUnCompte: React.FC<CreerUnCompteProps> = ({ isEmbedded = false }) => 
                 <div>
                   <CustomSelect
                     dataUrl={NIVEAUURL}
-                    placeholder="Sélectionnez votre Niveau"
+                    placeholder="Sélectionnez votre niveau"
                     isClearable
                     onChange={handleGradeChange}
                     value={formData.grade}
-                    className={errors.grade ? 'border-guinea-red' : ''}
+                    className={`bg-white border-neutral-300 rounded-xl ${errors.grade ? 'border-guinea-red' : ''}`}
                   />
                   {errors.grade && <p className="text-guinea-red text-sm mt-1">{errors.grade}</p>}
                 </div>
@@ -520,7 +581,7 @@ const CreerUnCompte: React.FC<CreerUnCompteProps> = ({ isEmbedded = false }) => 
                       value={formData.telephone}
                       onChange={handleInputChange}
                       placeholder="Téléphone (ex: 623456789)"
-                      className={`form-input-guinea pl-10 ${
+                      className={`w-full pl-10 pr-4 py-3 bg-white border border-neutral-300 rounded-xl text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent transition-all ${
                         errors.telephone ? 'border-guinea-red' : ''
                       }`}
                     />
@@ -538,7 +599,7 @@ const CreerUnCompte: React.FC<CreerUnCompteProps> = ({ isEmbedded = false }) => 
                       value={formData.email}
                       onChange={handleInputChange}
                       placeholder="Email"
-                      className={`form-input-guinea pl-10 ${
+                      className={`w-full pl-10 pr-4 py-3 bg-white border border-neutral-300 rounded-xl text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent transition-all ${
                         errors.email ? 'border-guinea-red' : ''
                       }`}
                     />
@@ -556,7 +617,7 @@ const CreerUnCompte: React.FC<CreerUnCompteProps> = ({ isEmbedded = false }) => 
                       value={formData.confirmEmail}
                       onChange={handleInputChange}
                       placeholder="Confirmer Email"
-                      className={`form-input-guinea pl-10 ${
+                      className={`w-full pl-10 pr-4 py-3 bg-white border border-neutral-300 rounded-xl text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent transition-all ${
                         errors.confirmEmail ? 'border-guinea-red' : ''
                       }`}
                     />
@@ -572,8 +633,8 @@ const CreerUnCompte: React.FC<CreerUnCompteProps> = ({ isEmbedded = false }) => 
                       name="password"
                       value={formData.password}
                       onChange={handleInputChange}
-                      placeholder="Créer un mot de passe"
-                      className={`form-input-guinea pr-12 ${
+                      placeholder="Mot de passe (min. 8 caractères)"
+                      className={`w-full px-4 py-3 bg-white border border-neutral-300 rounded-xl text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent transition-all pr-12 ${
                         errors.password ? 'border-guinea-red' : ''
                       }`}
                     />
@@ -597,7 +658,7 @@ const CreerUnCompte: React.FC<CreerUnCompteProps> = ({ isEmbedded = false }) => 
                       value={formData.confirmPassword}
                       onChange={handleInputChange}
                       placeholder="Confirmer le mot de passe"
-                      className={`form-input-guinea pr-12 ${
+                      className={`w-full px-4 py-3 bg-white border border-neutral-300 rounded-xl text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent transition-all pr-12 ${
                         errors.confirmPassword ? 'border-guinea-red' : ''
                       }`}
                     />
@@ -616,9 +677,9 @@ const CreerUnCompte: React.FC<CreerUnCompteProps> = ({ isEmbedded = false }) => 
                 <button
                   type="submit"
                   disabled={!isFormValid() || isSubmitting}
-                  className={`w-full py-4 px-6 rounded-lg font-semibold text-lg transition-all duration-300 flex items-center justify-center space-x-2 ${
+                  className={`w-full py-3 px-6 rounded-xl font-semibold text-lg transition-all duration-300 flex items-center justify-center space-x-2 ${
                     isFormValid() && !isSubmitting
-                      ? 'bg-gradient-guinea-green text-white hover:shadow-lg transform hover:scale-105'
+                      ? 'bg-guinea-green text-white hover:bg-guinea-green-dark'
                       : 'bg-neutral-300 text-neutral-500 cursor-not-allowed'
                   }`}
                 >
@@ -642,45 +703,6 @@ const CreerUnCompte: React.FC<CreerUnCompteProps> = ({ isEmbedded = false }) => 
                   </div>
                 )}
               </form>
-
-              {/* Back to Login */}
-              <div className="mt-8 pt-6 border-t border-neutral-200 text-center">
-                <button
-                  onClick={handleBackToLogin}
-                  className="inline-flex items-center space-x-2 text-guinea-green hover:text-guinea-green-light font-medium transition-colors"
-                >
-                  <ArrowLeft className="h-4 w-4" />
-                  <span>Déjà un compte ? Se connecter</span>
-                </button>
-              </div>
-            </div>
-
-            {/* Right side - Illustration */}
-            <div className="bg-gradient-guinea p-8 lg:p-12 flex items-center justify-center">
-              <div className="text-center text-white">
-                <div className="w-32 h-32 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-8 backdrop-blur-sm">
-                  <UserPlus className="h-16 w-16 text-white" />
-                </div>
-                <h2 className="text-3xl font-bold mb-4">Rejoignez EDU NUM</h2>
-                <p className="text-white/90 text-lg leading-relaxed">
-                  Créez votre compte et accédez à des milliers de cours de qualité 
-                  pour développer vos compétences et réussir vos études.
-                </p>
-                <div className="mt-8 space-y-4">
-                  <div className="flex items-center space-x-3">
-                    <CheckCircle className="h-5 w-5 text-white" />
-                    <span className="text-white/90">Accès à tous les cours</span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <CheckCircle className="h-5 w-5 text-white" />
-                    <span className="text-white/90">Certificats reconnus</span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <CheckCircle className="h-5 w-5 text-white" />
-                    <span className="text-white/90">Support personnalisé</span>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>

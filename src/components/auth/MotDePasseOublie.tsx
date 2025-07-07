@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, ArrowLeft, CheckCircle, AlertCircle, Send } from 'lucide-react';
+import { Mail, ArrowLeft, CheckCircle, AlertCircle, Send, Home, BookOpen, CreditCard, MessageCircle } from 'lucide-react';
 import logoEduNum from '../common/Images/eduNum.png';
 
 const MotDePasseOublie = () => {
@@ -7,6 +7,23 @@ const MotDePasseOublie = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isEmailSent, setIsEmailSent] = useState(false);
   const [error, setError] = useState('');
+
+  // Navigation functions
+  const handleScrollToSection = (sectionId: string) => {
+    window.location.href = `/#${sectionId}`;
+  };
+
+  const handleContactClick = () => {
+    window.location.href = '/contact';
+  };
+
+  const handleHomeClick = () => {
+    window.location.href = '/';
+  };
+
+  const handleLoginClick = () => {
+    window.location.href = '/login';
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,68 +47,110 @@ const MotDePasseOublie = () => {
     window.location.href = '/login';
   };
 
-  const handleHomeClick = () => {
-    window.location.href = '/';
-  };
-
   if (isEmailSent) {
     return (
-      <div className="min-h-screen bg-gradient-guinea flex items-center justify-center p-4">
-        <div className="w-full max-w-md">
-          <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
-            <div className="bg-gradient-guinea-green p-8 text-center">
-              <button 
-                onClick={handleHomeClick}
-                className="inline-flex items-center space-x-3 mb-6 text-white/80 hover:text-white transition-colors"
-              >
+      <div className="min-h-screen bg-neutral-50">
+        {/* Navigation Header */}
+        <header className="bg-white/95 backdrop-blur-sm shadow-sm sticky top-0 z-50 border-b border-neutral-200/50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between items-center h-16">
+              {/* Logo */}
+              <button onClick={handleHomeClick} className="flex items-center space-x-3">
                 <img 
-                  src={logoEduNum} 
+                  src={logoEduNum}
                   alt="EDU NUM Logo" 
                   className="h-10 w-auto"
                 />
               </button>
 
-              <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-6 border border-white/30">
-                <CheckCircle className="h-10 w-10 text-white" />
-              </div>
-              
-              <h1 className="text-2xl font-bold text-white mb-4">
-                Email envoyé !
-              </h1>
-              <p className="text-white/90 leading-relaxed">
-                Nous avons envoyé un lien de réinitialisation à votre adresse email.
-              </p>
+              {/* Navigation Links */}
+              <nav className="hidden md:flex items-center space-x-8">
+                <button 
+                  onClick={handleHomeClick}
+                  className="text-neutral-600 hover:text-guinea-green font-medium transition-colors duration-300"
+                >
+                  <Home className="h-4 w-4 inline mr-2" />
+                  Accueil
+                </button>
+                <button 
+                  onClick={() => handleScrollToSection('cours')}
+                  className="text-neutral-600 hover:text-guinea-green font-medium transition-colors duration-300"
+                >
+                  <BookOpen className="h-4 w-4 inline mr-2" />
+                  Cours
+                </button>
+                <button 
+                  onClick={() => handleScrollToSection('abonnements')}
+                  className="text-neutral-600 hover:text-guinea-green font-medium transition-colors duration-300"
+                >
+                  <CreditCard className="h-4 w-4 inline mr-2" />
+                  Abonnements
+                </button>
+                <button 
+                  onClick={handleContactClick}
+                  className="text-neutral-600 hover:text-guinea-green font-medium transition-colors duration-300"
+                >
+                  <MessageCircle className="h-4 w-4 inline mr-2" />
+                  Contact
+                </button>
+              </nav>
+
+              {/* Auth Button */}
+              <button 
+                onClick={handleLoginClick}
+                className="bg-guinea-green text-white px-4 py-2 rounded-lg hover:bg-guinea-green-dark transition-all duration-300 transform hover:scale-105"
+              >
+                Se Connecter
+              </button>
             </div>
+          </div>
+        </header>
 
-            <div className="p-8 text-center">
-              <div className="bg-guinea-green/10 border border-guinea-green/20 rounded-lg p-4 mb-6">
-                <p className="text-guinea-green text-sm">
-                  <strong>Email envoyé à :</strong><br />
-                  {email}
+        {/* Success Content */}
+        <div className="flex items-center justify-center p-4 py-12">
+          <div className="w-full max-w-md">
+            <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl border border-white/50 overflow-hidden">
+              <div className="p-8 text-center">
+                <div className="w-20 h-20 bg-guinea-green/20 rounded-full flex items-center justify-center mx-auto mb-6 border border-guinea-green/30">
+                  <CheckCircle className="h-10 w-10 text-guinea-green" />
+                </div>
+                
+                <h1 className="text-3xl font-bold text-neutral-900 mb-4">
+                  Email envoyé !
+                </h1>
+                <p className="text-neutral-600 leading-relaxed mb-6">
+                  Nous avons envoyé un lien de réinitialisation à votre adresse email.
                 </p>
-              </div>
 
-              <div className="space-y-4 text-sm text-neutral-600 mb-8">
-                <p>• Vérifiez votre boîte de réception</p>
-                <p>• Consultez également vos spams</p>
-                <p>• Le lien expire dans 24 heures</p>
-              </div>
+                <div className="bg-guinea-green/10 border border-guinea-green/20 rounded-lg p-4 mb-6">
+                  <p className="text-guinea-green text-sm">
+                    <strong>Email envoyé à :</strong><br />
+                    {email}
+                  </p>
+                </div>
 
-              <div className="space-y-3">
-                <button
-                  onClick={handleBackToLogin}
-                  className="w-full bg-gradient-guinea-green text-white py-3 px-6 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-2"
-                >
-                  <ArrowLeft className="h-5 w-5" />
-                  <span>Retour à la connexion</span>
-                </button>
+                <div className="space-y-4 text-sm text-neutral-600 mb-8">
+                  <p>• Vérifiez votre boîte de réception</p>
+                  <p>• Consultez également vos spams</p>
+                  <p>• Le lien expire dans 24 heures</p>
+                </div>
 
-                <button
-                  onClick={() => setIsEmailSent(false)}
-                  className="w-full text-guinea-green py-2 px-6 rounded-lg font-medium hover:bg-guinea-green/10 transition-colors"
-                >
-                  Renvoyer l'email
-                </button>
+                <div className="space-y-3">
+                  <button
+                    onClick={handleBackToLogin}
+                    className="w-full bg-guinea-green text-white py-3 px-6 rounded-xl font-semibold hover:bg-guinea-green-dark transition-all duration-300 flex items-center justify-center space-x-2"
+                  >
+                    <ArrowLeft className="h-5 w-5" />
+                    <span>Retour à la connexion</span>
+                  </button>
+
+                  <button
+                    onClick={() => setIsEmailSent(false)}
+                    className="w-full text-guinea-green py-2 px-6 rounded-xl font-medium hover:bg-guinea-green/10 transition-colors"
+                  >
+                    Renvoyer l'email
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -101,42 +160,90 @@ const MotDePasseOublie = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-guinea flex items-center justify-center p-4">
-      <div className="w-full max-w-6xl">
-        <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
-          <div className="grid lg:grid-cols-2">
-            {/* Left side - Reset Form */}
-            <div className="p-8 lg:p-12">
-              {/* Header */}
-              <div className="mb-8">
-                <button 
-                  onClick={handleHomeClick}
-                  className="inline-flex items-center space-x-3 mb-6 text-neutral-600 hover:text-guinea-green transition-colors"
+    <div className="min-h-screen bg-neutral-50">
+      {/* Navigation Header */}
+      <header className="bg-white/95 backdrop-blur-sm shadow-sm sticky top-0 z-50 border-b border-neutral-200/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            {/* Logo */}
+            <button onClick={handleHomeClick} className="flex items-center space-x-3">
+              <img 
+                src={logoEduNum}
+                alt="EDU NUM Logo" 
+                className="h-10 w-auto"
+              />
+            </button>
+
+            {/* Navigation Links */}
+            <nav className="hidden md:flex items-center space-x-8">
+              <button 
+                onClick={handleHomeClick}
+                className="text-neutral-600 hover:text-guinea-green font-medium transition-colors duration-300"
+              >
+                <Home className="h-4 w-4 inline mr-2" />
+                Accueil
+              </button>
+              <button 
+                onClick={() => handleScrollToSection('cours')}
+                className="text-neutral-600 hover:text-guinea-green font-medium transition-colors duration-300"
+              >
+                <BookOpen className="h-4 w-4 inline mr-2" />
+                Cours
+              </button>
+              <button 
+                onClick={() => handleScrollToSection('abonnements')}
+                className="text-neutral-600 hover:text-guinea-green font-medium transition-colors duration-300"
+              >
+                <CreditCard className="h-4 w-4 inline mr-2" />
+                Abonnements
+              </button>
+              <button 
+                onClick={handleContactClick}
+                className="text-neutral-600 hover:text-guinea-green font-medium transition-colors duration-300"
+              >
+                <MessageCircle className="h-4 w-4 inline mr-2" />
+                Contact
+              </button>
+            </nav>
+
+            {/* Auth Button */}
+            <button 
+              onClick={handleLoginClick}
+              className="bg-guinea-green text-white px-4 py-2 rounded-lg hover:bg-guinea-green-dark transition-all duration-300 transform hover:scale-105"
+            >
+              Se Connecter
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <div className="flex items-center justify-center p-4 py-12">
+        <div className="w-full max-w-md">
+          <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl border border-white/50 overflow-hidden">
+            {/* Header */}
+            <div className="p-8 text-center">
+              <h1 className="text-3xl font-bold text-neutral-900 mb-2">Mot de passe oublié ?</h1>
+              <div className="flex items-center justify-center space-x-2 text-neutral-600 mb-8">
+                <span>Vous vous souvenez de votre mot de passe?</span>
+                <button
+                  onClick={handleBackToLogin}
+                  className="text-sm text-blue-600 hover:text-blue-800 transition-colors underline"
                 >
-                  <img 
-                    src={logoEduNum}
-                    alt="EDU NUM Logo" 
-                    className="h-10 w-auto"
-                  />                 
+                  Connectez-vous
                 </button>
-
-                <h1 className="text-3xl font-bold text-neutral-900 mb-2">
-                  Mot de passe oublié ?
-                </h1>
-                <p className="text-neutral-600 leading-relaxed">
-                  Pas de problème ! Entrez votre adresse email et nous vous 
-                  enverrons un lien pour réinitialiser votre mot de passe.
-                </p>
               </div>
+            </div>
 
-              {/* Reset Form */}
+            {/* Form */}
+            <div className="px-8 pb-8">
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label htmlFor="email" className="form-label-guinea">
-                    Adresse Email
+                  <label htmlFor="email" className="flex items-center gap-2 text-sm font-medium text-neutral-700 mb-2">
+                    <Mail className="h-5 w-5" />
+                    Email
                   </label>
                   <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-neutral-400" />
                     <input
                       type="email"
                       id="email"
@@ -144,7 +251,7 @@ const MotDePasseOublie = () => {
                       onChange={(e) => setEmail(e.target.value)}
                       required
                       placeholder="Entrez votre adresse email"
-                      className="form-input-guinea pl-10"
+                      className="w-full px-4 py-3 bg-white border border-neutral-300 rounded-xl text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent transition-all"
                     />
                   </div>
                 </div>
@@ -161,7 +268,7 @@ const MotDePasseOublie = () => {
                 <button
                   type="submit"
                   disabled={isLoading || !email}
-                  className="w-full bg-gradient-guinea-green text-white py-4 px-6 rounded-lg font-semibold text-lg hover:shadow-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2"
+                  className="w-full bg-guinea-green text-white py-3 px-6 rounded-xl font-semibold text-lg hover:bg-guinea-green-dark transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
                 >
                   {isLoading ? (
                     <>
@@ -177,51 +284,21 @@ const MotDePasseOublie = () => {
                 </button>
               </form>
 
-              {/* Back to Login */}
-              <div className="mt-8 pt-6 border-t border-neutral-200 text-center">
-                <button
-                  onClick={handleBackToLogin}
-                  className="inline-flex items-center space-x-2 text-guinea-green hover:text-guinea-green-light font-medium transition-colors"
-                >
-                  <ArrowLeft className="h-4 w-4" />
-                  <span>Retour à la connexion</span>
-                </button>
-              </div>
-            </div>
-
-            {/* Right side - Illustration */}
-            <div className="bg-gradient-guinea p-8 lg:p-12 flex items-center justify-center">
-              <div className="text-center text-white">
-                <div className="w-32 h-32 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-8 backdrop-blur-sm border border-white/30">
-                  <Mail className="h-16 w-16 text-white" />
-                </div>
-                <h2 className="text-3xl font-bold mb-4">Récupération sécurisée</h2>
-                <p className="text-white/90 text-lg leading-relaxed mb-8">
-                  Nous prenons la sécurité de votre compte au sérieux. 
-                  Le processus de récupération est simple et sécurisé.
-                </p>
-                
-                <div className="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/20">
-                  <h3 className="font-semibold text-lg mb-4">Comment ça marche ?</h3>
-                  <div className="space-y-3 text-left">
-                    <div className="flex items-start space-x-3">
-                      <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <span className="text-guinea-green text-sm font-bold">1</span>
-                      </div>
-                      <span className="text-white/90 text-sm">Entrez votre email</span>
-                    </div>
-                    <div className="flex items-start space-x-3">
-                      <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <span className="text-guinea-green text-sm font-bold">2</span>
-                      </div>
-                      <span className="text-white/90 text-sm">Recevez le lien par email</span>
-                    </div>
-                    <div className="flex items-start space-x-3">
-                      <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <span className="text-guinea-green text-sm font-bold">3</span>
-                      </div>
-                      <span className="text-white/90 text-sm">Créez un nouveau mot de passe</span>
-                    </div>
+              {/* Additional Info */}
+              <div className="mt-6 p-4 bg-neutral-50 rounded-xl">
+                <h3 className="font-semibold text-neutral-800 mb-2">Comment ça marche ?</h3>
+                <div className="space-y-2 text-sm text-neutral-600">
+                  <div className="flex items-start space-x-2">
+                    <span className="text-guinea-green font-bold">1.</span>
+                    <span>Entrez votre email</span>
+                  </div>
+                  <div className="flex items-start space-x-2">
+                    <span className="text-guinea-green font-bold">2.</span>
+                    <span>Recevez le lien par email</span>
+                  </div>
+                  <div className="flex items-start space-x-2">
+                    <span className="text-guinea-green font-bold">3.</span>
+                    <span>Créez un nouveau mot de passe</span>
                   </div>
                 </div>
               </div>
