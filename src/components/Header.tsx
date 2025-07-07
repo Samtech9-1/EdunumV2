@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Menu, X, User, LogIn } from 'lucide-react';
 import logoEduNum from './common/Images/eduNum.png';
 
-
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -14,30 +13,42 @@ const Header = () => {
     window.location.href = '/login';
   };
 
-  const handleInscriptionClick = () => {
-    const inscriptionSection = document.getElementById('inscription');
-    if (inscriptionSection) {
-      inscriptionSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   const handleContactClick = () => {
-    const contactSection = document.getElementById('contact');
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' });
-    }
+    window.location.href = '/contact';
   };
 
-  interface ScrollToSectionHandler {
-    (sectionId: string): void;
-  }
-
-  const handleScrollToSection: ScrollToSectionHandler = (sectionId) => {
-    const section = document.getElementById(sectionId);
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
+  // Navigation function that works on all pages
+  const handleNavigation = (target: string) => {
+    // If we're on the home page, scroll to section
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+      const section = document.getElementById(target);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      // If we're on another page, navigate to home with hash
+      window.location.href = `/#${target}`;
     }
     setIsMenuOpen(false); // Close mobile menu after navigation
+  };
+
+  const handleHomeClick = () => {
+    window.location.href = '/';
+    setIsMenuOpen(false);
+  };
+
+  const handleInscriptionClick = () => {
+    // If we're on the home page, scroll to section
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+      const inscriptionSection = document.getElementById('inscription');
+      if (inscriptionSection) {
+        inscriptionSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      // If we're on another page, navigate to home with hash
+      window.location.href = '/#inscription';
+    }
+    setIsMenuOpen(false);
   };
 
   return (
@@ -45,35 +56,35 @@ const Header = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <div className="logo-container cursor-pointer" onClick={() => handleScrollToSection('accueil')}>
+          <div className="logo-container cursor-pointer" onClick={handleHomeClick}>
             <img 
               src={logoEduNum} 
               alt="EDU NUM Logo" 
               className="logo-image"
             />
-            </div>
+          </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             <button 
-              onClick={() => handleScrollToSection('accueil')}
+              onClick={handleHomeClick}
               className="nav-link-guinea">
              🏠 Accueil
             </button>
             <button 
-              onClick={() => handleScrollToSection('cours')}
+              onClick={() => handleNavigation('cours')}
               className="nav-link-guinea"
             >
               📖 Cours
             </button>
             <button 
-              onClick={() => handleScrollToSection('abonnements')}
+              onClick={() => handleNavigation('abonnements')}
               className="nav-link-guinea"
             >
                💳 Abonnements
             </button>
             <button 
-              onClick={() => handleScrollToSection('instructeurs')}
+              onClick={() => handleNavigation('instructeurs')}
               className="nav-link-guinea"
             >
               ℹ️ Instructeurs
@@ -118,34 +129,34 @@ const Header = () => {
           <div className="md:hidden absolute top-16 left-0 right-0 bg-white shadow-xl border-t border-guinea-yellow/20 rounded-b-lg">
             <div className="px-4 py-4 space-y-4">
               <button 
-                onClick={() => handleScrollToSection('accueil')}
+                onClick={handleHomeClick}
                 className="block w-full text-left nav-link-guinea py-2"
               >
-                Accueil
+                🏠 Accueil
               </button>
               <button 
-                onClick={() => handleScrollToSection('cours')}
+                onClick={() => handleNavigation('cours')}
                 className="block w-full text-left nav-link-guinea py-2"
               >
-                Cours
+                📖 Cours
               </button>
               <button 
-                onClick={() => handleScrollToSection('abonnements')}
+                onClick={() => handleNavigation('abonnements')}
                 className="block w-full text-left nav-link-guinea py-2"
               >
-                Abonnements
+                💳 Abonnements
               </button>
               <button 
-                onClick={() => handleScrollToSection('instructeurs')}
+                onClick={() => handleNavigation('instructeurs')}
                 className="block w-full text-left nav-link-guinea py-2"
               >
-                Instructeurs
+                ℹ️ Instructeurs
               </button>
               <button 
                 onClick={handleContactClick}
                 className="block w-full text-left nav-link-guinea py-2"
               >
-                Contact
+                📧 Contact
               </button>
               <div className="pt-4 border-t border-guinea-yellow/20 space-y-2">
                 <button 
