@@ -85,7 +85,7 @@ const SubscriptionSection = () => {
   };
 
   return (
-    <section id="abonnements" className="section-education bg-white relative">
+    <section id="abonnements" className="section-education bg-neutral-50 p-6  border border-neutral-200 relative">
       {/* Background decorative elements */}
       <div className="absolute inset-0">
         <div className="absolute top-20 right-20 opacity-5">
@@ -243,7 +243,7 @@ const SubscriptionSection = () => {
                 <div className="w-8 h-8 bg-guinea-green rounded-full flex items-center justify-center flex-shrink-0">
                   <CheckCircle className="h-5 w-5 text-white" />
                 </div>
-                <span className="text-neutral-700 text-lg">ngagement sur le long terme pour de meilleurs résultats</span>
+                <span className="text-neutral-700 text-lg">Engagement sur le long terme pour de meilleurs résultats</span>
               </div>
             </div>
 
