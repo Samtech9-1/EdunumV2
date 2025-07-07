@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { LogIn, Mail, Lock, Eye, EyeOff, User, AlertCircle, CheckCircle } from 'lucide-react';
+import { LogIn, Mail, Lock, Eye, EyeOff, AlertCircle, CheckCircle } from 'lucide-react';
 import logoEduNum from '../common/Images/eduNum.png';
 import { UserService } from '../../services/UserService';
 import { PROFILE } from '../../utils/constants';
@@ -21,6 +21,7 @@ const Connexion: React.FC = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [serverMessage, setServerMessage] = useState<string>('');
+  const [rememberMe, setRememberMe] = useState<boolean>(false);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCredentials({
@@ -151,8 +152,12 @@ const Connexion: React.FC = () => {
     window.location.href = '/';
   };
 
+  const handleForgotPasswordClick = () => {
+    window.location.href = '/reset-password';
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-guinea flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-purple-100 via-pink-50 to-orange-100 flex items-center justify-center p-4">
       {/* Loading Overlay */}
       {isLoading && (
         <div className="overlay">
@@ -166,177 +171,171 @@ const Connexion: React.FC = () => {
         </div>
       )}
 
-      <div className="w-full max-w-6xl">
-        <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
-          <div className="grid lg:grid-cols-2">
-            {/* Left side - Login Form */}
-            <div className="bg-gradient-to-br from-neutral-700 via-neutral-800 to-neutral-900 p-8 lg:p-12 flex flex-col justify-center">
-              {/* Header with Logo */}
-              <div className="text-center mb-8">
-                <button
-                  onClick={handleHomeClick}
-                  className="inline-flex items-center space-x-3 mb-6 text-white/80 hover:text-white transition-colors"
-                >
-                  <img
-                    src={logoEduNum}
-                    alt="EDU NUM Logo"
-                    className="h-12 w-auto"
-                  />                  
-                </button>
+      <div className="w-full max-w-md">
+        <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl border border-white/50 overflow-hidden">
+          {/* Header */}
+          <div className="p-8 text-center">
+            <button
+              onClick={handleHomeClick}
+              className="inline-flex items-center space-x-3 mb-6 text-neutral-600 hover:text-guinea-green transition-colors"
+            >
+              <img
+                src={logoEduNum}
+                alt="EDU NUM Logo"
+                className="h-10 w-auto"
+              />                  
+            </button>
 
-                <h1 className="text-3xl font-bold text-white mb-4 leading-tight">
-                  Bienvenue sur la<br />
-                  plateforme EDUNUM
-                </h1>
+            <h1 className="text-3xl font-bold text-neutral-900 mb-2">Sign in</h1>
+            <div className="flex items-center justify-center space-x-2 text-neutral-600 mb-8">
+              <span>Don't have an account?</span>
+              <button
+                onClick={handleCreateAccountClick}
+                className="text-neutral-900 font-semibold hover:text-guinea-green transition-colors"
+              >
+                Join now
+              </button>
+            </div>
+          </div>
 
-                {/* User Icon */}
-                <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-8 border border-white/30">
-                  <User className="h-10 w-10 text-white" />
+          {/* Form */}
+          <div className="px-8 pb-8">
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Email Field */}
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-neutral-700 mb-2">
+                  Email
+                </label>
+                <div className="relative">
+                  <input
+                    type="email"
+                    id="email"
+                    name="Email"
+                    value={credentials.Email}
+                    onChange={onChange}
+                    required
+                    placeholder="Email address"
+                    className="w-full px-4 py-3 bg-white border border-neutral-300 rounded-xl text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent transition-all"
+                  />
                 </div>
               </div>
 
-              {/* Login Form */}
-              <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Email Field */}
-                <div>
-                  <label htmlFor="email" className="form-label-guinea text-white">
-                    Adresse Email
+              {/* Password Field */}
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <label htmlFor="password" className="block text-sm font-medium text-neutral-700">
+                    Password
                   </label>
-                  <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-neutral-400" />
-                    <input
-                      type="email"
-                      id="email"
-                      name="Email"
-                      value={credentials.Email}
-                      onChange={onChange}
-                      required
-                      placeholder="Entrez votre email"
-                      className="w-full pl-10 pr-4 py-3 bg-white/90 border-0 rounded-lg text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-guinea-green focus:bg-white transition-all"
-                    />
-                  </div>
-                </div>
-
-                {/* Password Field */}
-                <div>
-                  <label htmlFor="password" className="form-label-guinea text-white">
-                    Mot de passe
-                  </label>
-                  <div className="relative">
-                    <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-neutral-400" />
-                    <input
-                      type={showPassword ? 'text' : 'password'}
-                      id="password"
-                      name="Password"
-                      value={credentials.Password}
-                      onChange={onChange}
-                      required
-                      placeholder="Entrez votre mot de passe"
-                      className="w-full pl-10 pr-12 py-3 bg-white/90 border-0 rounded-lg text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-guinea-green focus:bg-white transition-all"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-neutral-500 hover:text-neutral-700 transition-colors"
-                    >
-                      {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
-                    </button>
-                  </div>
-                </div>
-
-                {/* Error Message */}
-                {serverMessage && (
-                  <div className={`rounded-lg p-3 flex items-center space-x-2 ${serverMessage.includes('réussie') || serverMessage.includes('Redirection vers vos cours')
-                    ? 'bg-guinea-green/20 border border-guinea-green/30'
-                    : serverMessage.includes('abonnement') || serverMessage.includes('profil')
-                      ? 'bg-guinea-yellow/20 border border-guinea-yellow/30'
-                      : 'bg-guinea-red/20 border border-guinea-red/30'
-                    }`}>
-                    {serverMessage.includes('réussie') || serverMessage.includes('Redirection vers vos cours') ? (
-                      <CheckCircle className="h-5 w-5 text-guinea-green flex-shrink-0" />
-                    ) : serverMessage.includes('abonnement') || serverMessage.includes('profil') ? (
-                      <AlertCircle className="h-5 w-5 text-guinea-yellow flex-shrink-0" />
-                    ) : (
-                      <AlertCircle className="h-5 w-5 text-guinea-red flex-shrink-0" />
-                    )}
-                    <p className={`text-sm ${serverMessage.includes('réussie') || serverMessage.includes('Redirection vers vos cours')
-                      ? 'text-guinea-green'
-                      : serverMessage.includes('abonnement') || serverMessage.includes('profil')
-                        ? 'text-guinea-yellow'
-                        : 'text-guinea-red'
-                      }`}>
-                      {serverMessage}
-                    </p>
-                  </div>
-                )}
-
-                {/* Forgot Password Link */}
-                <div className="text-center">
-                  <a
-                    href="/reset-password"
-                    className="text-white/80 hover:text-white text-sm underline transition-colors"
+                  <button
+                    type="button"
+                    onClick={handleForgotPasswordClick}
+                    className="text-sm text-neutral-600 hover:text-neutral-900 transition-colors"
                   >
-                    Mot de passe oublié ?
-                  </a>
+                    Forgot Password?
+                  </button>
                 </div>
-
-                {/* Submit Button */}
-                <button
-                  type="submit"
-                  disabled={isLoading}
-                  className="w-full bg-white text-neutral-800 py-4 px-6 rounded-lg font-semibold text-lg hover:bg-neutral-100 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2 shadow-lg"
-                >
-                  <LogIn className="h-5 w-5" />
-                  <span>Se Connecter</span>
-                </button>
-              </form>
-
-              {/* Create Account Link */}
-              <div className="mt-8 pt-6 border-t border-white/20 text-center">
-                <p className="text-white/80 text-sm mb-3">
-                  Première visite ?
-                </p>
-                <button
-                  onClick={handleCreateAccountClick}
-                  className="text-white font-medium hover:text-guinea-green transition-colors underline text-lg"
-                >
-                  Créer un compte
-                </button>
-              </div>
-            </div>
-
-            {/* Right side - Illustration */}
-            <div className="bg-gradient-guinea p-8 lg:p-12 flex items-center justify-center">
-              <div className="text-center text-white">
-                <div className="w-32 h-32 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-8 backdrop-blur-sm border border-white/30">
-                  <LogIn className="h-16 w-16 text-white" />
-                </div>
-                <h2 className="text-3xl font-bold mb-4">Connectez-vous</h2>
-                <p className="text-white/90 text-lg leading-relaxed mb-8">
-                  Accédez à votre espace personnel et continuez votre parcours
-                  d'apprentissage avec EDU NUM.
-                </p>
-
-                <div className="space-y-4">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-2 h-2 bg-white rounded-full"></div>
-                    <span className="text-white/90">Accès à vos cours</span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <div className="w-2 h-2 bg-white rounded-full"></div>
-                    <span className="text-white/90">Suivi de progression</span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <div className="w-2 h-2 bg-white rounded-full"></div>
-                    <span className="text-white/90">Certificats personnalisés</span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <div className="w-2 h-2 bg-white rounded-full"></div>
-                    <span className="text-white/90">Support pédagogique</span>
-                  </div>
+                <div className="relative">
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    id="password"
+                    name="Password"
+                    value={credentials.Password}
+                    onChange={onChange}
+                    required
+                    placeholder="Password (min. 8 character)"
+                    className="w-full px-4 py-3 bg-white border border-neutral-300 rounded-xl text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent transition-all pr-12"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-neutral-500 hover:text-neutral-700 transition-colors"
+                  >
+                    {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                  </button>
                 </div>
               </div>
-            </div>
+
+              {/* Remember Me */}
+              <div className="flex items-center">
+                <input
+                  id="remember-me"
+                  name="remember-me"
+                  type="checkbox"
+                  checked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
+                  className="h-4 w-4 text-neutral-900 focus:ring-neutral-900 border-neutral-300 rounded"
+                />
+                <label htmlFor="remember-me" className="ml-2 block text-sm text-neutral-700">
+                  Remember me
+                </label>
+              </div>
+
+              {/* Error Message */}
+              {serverMessage && (
+                <div className={`rounded-lg p-3 flex items-center space-x-2 ${serverMessage.includes('réussie') || serverMessage.includes('Redirection vers vos cours')
+                  ? 'bg-guinea-green/20 border border-guinea-green/30'
+                  : serverMessage.includes('abonnement') || serverMessage.includes('profil')
+                    ? 'bg-guinea-yellow/20 border border-guinea-yellow/30'
+                    : 'bg-guinea-red/20 border border-guinea-red/30'
+                  }`}>
+                  {serverMessage.includes('réussie') || serverMessage.includes('Redirection vers vos cours') ? (
+                    <CheckCircle className="h-5 w-5 text-guinea-green flex-shrink-0" />
+                  ) : serverMessage.includes('abonnement') || serverMessage.includes('profil') ? (
+                    <AlertCircle className="h-5 w-5 text-guinea-yellow flex-shrink-0" />
+                  ) : (
+                    <AlertCircle className="h-5 w-5 text-guinea-red flex-shrink-0" />
+                  )}
+                  <p className={`text-sm ${serverMessage.includes('réussie') || serverMessage.includes('Redirection vers vos cours')
+                    ? 'text-guinea-green'
+                    : serverMessage.includes('abonnement') || serverMessage.includes('profil')
+                      ? 'text-guinea-yellow'
+                      : 'text-guinea-red'
+                    }`}>
+                    {serverMessage}
+                  </p>
+                </div>
+              )}
+
+              {/* Submit Button */}
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="w-full bg-neutral-900 text-white py-3 px-6 rounded-xl font-semibold text-lg hover:bg-neutral-800 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+              >
+                {isLoading ? (
+                  <>
+                    <div className="loading-spinner h-5 w-5 border-white"></div>
+                    <span>Connexion...</span>
+                  </>
+                ) : (
+                  <span>Sign in</span>
+                )}
+              </button>
+
+              {/* Divider */}
+              <div className="relative my-6">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-neutral-300"></div>
+                </div>
+                <div className="relative flex justify-center text-sm">
+                  <span className="px-2 bg-white text-neutral-500">or</span>
+                </div>
+              </div>
+
+              {/* Google Sign In */}
+              <button
+                type="button"
+                className="w-full bg-white border border-neutral-300 text-neutral-700 py-3 px-6 rounded-xl font-semibold hover:bg-neutral-50 transition-all duration-300 flex items-center justify-center space-x-3"
+              >
+                <svg className="w-5 h-5" viewBox="0 0 24 24">
+                  <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                  <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                  <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                  <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                </svg>
+                <span>Sign in with Google</span>
+              </button>
+            </form>
           </div>
         </div>
       </div>
