@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { LogIn, Mail, Lock, Eye, EyeOff, AlertCircle, CheckCircle } from 'lucide-react';
-import logoEduNum from '../common/Images/eduNum.png';
+import Header from '../Header';
 import { UserService } from '../../services/UserService';
 import { PROFILE } from '../../utils/constants';
 
@@ -148,16 +148,15 @@ const Connexion: React.FC = () => {
     window.location.href = '/register';
   };
 
-  const handleHomeClick = () => {
-    window.location.href = '/';
-  };
-
   const handleForgotPasswordClick = () => {
     window.location.href = '/reset-password';
   };
 
   return (
-    <div className="min-h-screen bg-neutral-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-neutral-50">
+      {/* Use Header component */}
+      <Header />
+
       {/* Loading Overlay */}
       {isLoading && (
         <div className="overlay">
@@ -171,156 +170,148 @@ const Connexion: React.FC = () => {
         </div>
       )}
 
-      <div className="w-full max-w-md">
-        <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl border border-white/50 overflow-hidden">
-          {/* Header */}
-          <div className="p-8 text-center">
-            <button
-              onClick={handleHomeClick}
-              className="inline-flex items-center space-x-3 mb-6 text-neutral-600 hover:text-guinea-green transition-colors"
-            >
-              <img
-                src={logoEduNum}
-                alt="EDU NUM Logo"
-                className="h-10 w-auto"
-              />
-            </button>
+      {/* Main Content */}
+      <div className="flex items-center justify-center p-4 py-12">
+        <div className="w-full max-w-md">
+          <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl border border-white/50 overflow-hidden">
+            {/* Header */}
+            <div className="p-8 text-center">
+              <h1 className="text-3xl font-bold text-neutral-900 mb-2">Connexion</h1>
+              <div className="flex items-center justify-center space-x-2 text-neutral-600 mb-8">
+                <span>Vous n'avez pas de compte?</span>
+                <button
+                  onClick={handleCreateAccountClick}
+                  className="text-sm text-blue-600 hover:text-blue-800 transition-colors underline"
+                >
+                  Créez votre compte
+                </button>
+              </div>
+            </div>
 
-            <h1 className="text-3xl font-bold text-neutral-900 mb-2">Connexion</h1>
-            <div className="flex items-center justify-center space-x-2 text-neutral-600 mb-8">
-              <span>vous n'avez pas de compte?</span>
-              <button
-                onClick={handleCreateAccountClick}
-                className="text-sm text-blue-600 hover:text-blue-800 transition-colors underline"
-              >
-                Créez votre compte
-              </button>
+            {/* Form */}
+            <div className="px-8 pb-8">
+              <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Email Field */}
+                <div>
+                  <label htmlFor="email" className="flex items-center gap-2 text-sm font-medium text-neutral-700 mb-2">
+                    <Mail className="h-5 w-5" />
+                    Email
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="email"
+                      id="email"
+                      name="Email"
+                      value={credentials.Email}
+                      onChange={onChange}
+                      required
+                      placeholder="Email"
+                      className="w-full px-4 py-3 bg-white border border-neutral-300 rounded-xl text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent transition-all"
+                    />
+                  </div>
+                </div>
+
+                {/* Password Field */}
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <label htmlFor="password" className="flex items-center gap-2 text-sm font-medium text-neutral-700">
+                      <Lock className="h-5 w-5" />
+                      Mot de passe
+                    </label>
+                    <button
+                      type="button"
+                      onClick={handleForgotPasswordClick}
+                      className="text-sm text-blue-600 hover:text-blue-800 transition-colors underline"
+                    >
+                      mot de passe oublié ?
+                    </button>
+                  </div>
+                  <div className="relative">
+                    <input
+                      type={showPassword ? 'text' : 'password'}
+                      id="password"
+                      name="Password"
+                      value={credentials.Password}
+                      onChange={onChange}
+                      required
+                      placeholder="mot de passe (min. 8 caractères)"
+                      className="w-full px-4 py-3 bg-white border border-neutral-300 rounded-xl text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent transition-all pr-12"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-neutral-500 hover:text-neutral-700 transition-colors"
+                    >
+                      {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Remember Me */}
+                <div className="flex items-center">
+                  <input
+                    id="remember-me"
+                    name="remember-me"
+                    type="checkbox"
+                    checked={rememberMe}
+                    onChange={(e) => setRememberMe(e.target.checked)}
+                    className="h-4 w-4 text-neutral-900 focus:ring-neutral-900 border-neutral-300 rounded"
+                  />
+                  <label htmlFor="remember-me" className="ml-2 block text-sm text-neutral-700">
+                    Se souvenir de moi
+                  </label>
+                </div>
+
+                {/* Error Message */}
+                {serverMessage && (
+                  <div className={`rounded-lg p-3 flex items-center space-x-2 ${serverMessage.includes('réussie') || serverMessage.includes('Redirection vers vos cours')
+                    ? 'bg-guinea-green/20 border border-guinea-green/30'
+                    : serverMessage.includes('abonnement') || serverMessage.includes('profil')
+                      ? 'bg-guinea-yellow/20 border border-guinea-yellow/30'
+                      : 'bg-guinea-red/20 border border-guinea-red/30'
+                    }`}>
+                    {serverMessage.includes('réussie') || serverMessage.includes('Redirection vers vos cours') ? (
+                      <CheckCircle className="h-5 w-5 text-guinea-green flex-shrink-0" />
+                    ) : serverMessage.includes('abonnement') || serverMessage.includes('profil') ? (
+                      <AlertCircle className="h-5 w-5 text-guinea-yellow flex-shrink-0" />
+                    ) : (
+                      <AlertCircle className="h-5 w-5 text-guinea-red flex-shrink-0" />
+                    )}
+                    <p className={`text-sm ${serverMessage.includes('réussie') || serverMessage.includes('Redirection vers vos cours')
+                      ? 'text-guinea-green'
+                      : serverMessage.includes('abonnement') || serverMessage.includes('profil')
+                        ? 'text-guinea-yellow'
+                        : 'text-guinea-red'
+                      }`}>
+                      {serverMessage}
+                    </p>
+                  </div>
+                )}
+
+                {/* Submit Button */}
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className="w-full bg-guinea-green text-white py-3 px-6 rounded-xl font-semibold text-lg hover:bg-guinea-green-dark transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+                >
+                  {isLoading ? (
+                    <>
+                      <div className="loading-spinner h-5 w-5 border-white"></div>
+                      <span>Connexion...</span>
+                    </>
+                  ) : (
+                    <>
+                      <LogIn className="h-5 w-5" />
+                      <span>Connexion</span>
+                    </>
+                  )}
+                </button>
+              </form>
             </div>
           </div>
-
-          {/* Form */}
-          <div className="px-8 pb-8">
-            <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Email Field */}
-              <div>
-                <label htmlFor="email" className="flex items-center gap-2 text-sm font-medium text-neutral-700 mb-2">
-                  <Mail className="h-5 w-5" />
-                  Email
-                </label>
-                <div className="relative">
-                  <input
-                    type="email"
-                    id="email"
-                    name="Email"
-                    value={credentials.Email}
-                    onChange={onChange}
-                    required
-                    placeholder="Email"
-                    className="w-full px-4 py-3 bg-white border border-neutral-300 rounded-xl text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent transition-all"
-                  />
-                </div>
-              </div>
-
-              {/* Password Field */}
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <label htmlFor="password" className="flex items-center gap-2 text-sm font-medium text-neutral-700">
-                    <Lock className="h-5 w-5" />
-                    Mot de passe
-                  </label>
-                  <button
-                    type="button"
-                    onClick={handleForgotPasswordClick}
-                    className="text-sm text-blue-600 hover:text-blue-800 transition-colors underline"
-                  >
-                    mot de passe oublié ?
-                  </button>
-                </div>
-                <div className="relative">
-                  <input
-                    type={showPassword ? 'text' : 'password'}
-                    id="password"
-                    name="Password"
-                    value={credentials.Password}
-                    onChange={onChange}
-                    required
-                    placeholder="mot de passe (min. 8 caractères)"
-                    className="w-full px-4 py-3 bg-white border border-neutral-300 rounded-xl text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent transition-all pr-12"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-neutral-500 hover:text-neutral-700 transition-colors"
-                  >
-                    {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
-                  </button>
-                </div>
-              </div>
-
-              {/* Remember Me
-              <div className="flex items-center">
-                <input
-                  id="remember-me"
-                  name="remember-me"
-                  type="checkbox"
-                  checked={rememberMe}
-                  onChange={(e) => setRememberMe(e.target.checked)}
-                  className="h-4 w-4 text-neutral-900 focus:ring-neutral-900 border-neutral-300 rounded"
-                />
-                <label htmlFor="remember-me" className="ml-2 block text-sm text-neutral-700">
-                  Remember me
-                </label>
-              </div> */}
-
-              {/* Error Message */}
-              {serverMessage && (
-                <div className={`rounded-lg p-3 flex items-center space-x-2 ${serverMessage.includes('réussie') || serverMessage.includes('Redirection vers vos cours')
-                  ? 'bg-guinea-green/20 border border-guinea-green/30'
-                  : serverMessage.includes('abonnement') || serverMessage.includes('profil')
-                    ? 'bg-guinea-yellow/20 border border-guinea-yellow/30'
-                    : 'bg-guinea-red/20 border border-guinea-red/30'
-                  }`}>
-                  {serverMessage.includes('réussie') || serverMessage.includes('Redirection vers vos cours') ? (
-                    <CheckCircle className="h-5 w-5 text-guinea-green flex-shrink-0" />
-                  ) : serverMessage.includes('abonnement') || serverMessage.includes('profil') ? (
-                    <AlertCircle className="h-5 w-5 text-guinea-yellow flex-shrink-0" />
-                  ) : (
-                    <AlertCircle className="h-5 w-5 text-guinea-red flex-shrink-0" />
-                  )}
-                  <p className={`text-sm ${serverMessage.includes('réussie') || serverMessage.includes('Redirection vers vos cours')
-                    ? 'text-guinea-green'
-                    : serverMessage.includes('abonnement') || serverMessage.includes('profil')
-                      ? 'text-guinea-yellow'
-                      : 'text-guinea-red'
-                    }`}>
-                    {serverMessage}
-                  </p>
-                </div>
-              )}
-
-              {/* Submit Button */}
-              <button
-                type="submit"
-                disabled={isLoading}
-                className="w-full bg-guinea-green text-white py-3 px-6 rounded-xl font-semibold text-lg hover:bg-guinea-green-dark transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
-              >
-                {isLoading ? (
-                  <>
-                    <div className="loading-spinner h-5 w-5 border-white"></div>
-                    <span>Connexion...</span>
-                  </>
-                ) : (
-                  <>
-                    <LogIn className="h-5 w-5" />
-                    <span>Connexion</span>
-                  </>
-                )}
-              </button>
-            </form>
-          </div>
         </div>
-      </div >
-    </div >
+      </div>
+    </div>
   );
 };
 

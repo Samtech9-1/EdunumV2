@@ -1,29 +1,12 @@
 import React, { useState } from 'react';
-import { Mail, ArrowLeft, CheckCircle, AlertCircle, Send, Home, BookOpen, CreditCard, MessageCircle } from 'lucide-react';
-import logoEduNum from '../common/Images/eduNum.png';
+import { Mail, ArrowLeft, CheckCircle, AlertCircle, Send } from 'lucide-react';
+import Header from '../Header';
 
 const MotDePasseOublie = () => {
   const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isEmailSent, setIsEmailSent] = useState(false);
   const [error, setError] = useState('');
-
-  // Navigation functions
-  const handleScrollToSection = (sectionId: string) => {
-    window.location.href = `/#${sectionId}`;
-  };
-
-  const handleContactClick = () => {
-    window.location.href = '/contact';
-  };
-
-  const handleHomeClick = () => {
-    window.location.href = '/';
-  };
-
-  const handleLoginClick = () => {
-    window.location.href = '/login';
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -50,61 +33,8 @@ const MotDePasseOublie = () => {
   if (isEmailSent) {
     return (
       <div className="min-h-screen bg-neutral-50">
-        {/* Navigation Header */}
-        <header className="bg-white/95 backdrop-blur-sm shadow-sm sticky top-0 z-50 border-b border-neutral-200/50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center h-16">
-              {/* Logo */}
-              <button onClick={handleHomeClick} className="flex items-center space-x-3">
-                <img 
-                  src={logoEduNum}
-                  alt="EDU NUM Logo" 
-                  className="h-10 w-auto"
-                />
-              </button>
-
-              {/* Navigation Links */}
-              <nav className="hidden md:flex items-center space-x-8">
-                <button 
-                  onClick={handleHomeClick}
-                  className="text-neutral-600 hover:text-guinea-green font-medium transition-colors duration-300"
-                >
-                  <Home className="h-4 w-4 inline mr-2" />
-                  Accueil
-                </button>
-                <button 
-                  onClick={() => handleScrollToSection('cours')}
-                  className="text-neutral-600 hover:text-guinea-green font-medium transition-colors duration-300"
-                >
-                  <BookOpen className="h-4 w-4 inline mr-2" />
-                  Cours
-                </button>
-                <button 
-                  onClick={() => handleScrollToSection('abonnements')}
-                  className="text-neutral-600 hover:text-guinea-green font-medium transition-colors duration-300"
-                >
-                  <CreditCard className="h-4 w-4 inline mr-2" />
-                  Abonnements
-                </button>
-                <button 
-                  onClick={handleContactClick}
-                  className="text-neutral-600 hover:text-guinea-green font-medium transition-colors duration-300"
-                >
-                  <MessageCircle className="h-4 w-4 inline mr-2" />
-                  Contact
-                </button>
-              </nav>
-
-              {/* Auth Button */}
-              <button 
-                onClick={handleLoginClick}
-                className="bg-guinea-green text-white px-4 py-2 rounded-lg hover:bg-guinea-green-dark transition-all duration-300 transform hover:scale-105"
-              >
-                Se Connecter
-              </button>
-            </div>
-          </div>
-        </header>
+        {/* Use Header component */}
+        <Header />
 
         {/* Success Content */}
         <div className="flex items-center justify-center p-4 py-12">
@@ -161,61 +91,8 @@ const MotDePasseOublie = () => {
 
   return (
     <div className="min-h-screen bg-neutral-50">
-      {/* Navigation Header */}
-      <header className="bg-white/95 backdrop-blur-sm shadow-sm sticky top-0 z-50 border-b border-neutral-200/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            {/* Logo */}
-            <button onClick={handleHomeClick} className="flex items-center space-x-3">
-              <img 
-                src={logoEduNum}
-                alt="EDU NUM Logo" 
-                className="h-10 w-auto"
-              />
-            </button>
-
-            {/* Navigation Links */}
-            <nav className="hidden md:flex items-center space-x-8">
-              <button 
-                onClick={handleHomeClick}
-                className="text-neutral-600 hover:text-guinea-green font-medium transition-colors duration-300"
-              >
-                <Home className="h-4 w-4 inline mr-2" />
-                Accueil
-              </button>
-              <button 
-                onClick={() => handleScrollToSection('cours')}
-                className="text-neutral-600 hover:text-guinea-green font-medium transition-colors duration-300"
-              >
-                <BookOpen className="h-4 w-4 inline mr-2" />
-                Cours
-              </button>
-              <button 
-                onClick={() => handleScrollToSection('abonnements')}
-                className="text-neutral-600 hover:text-guinea-green font-medium transition-colors duration-300"
-              >
-                <CreditCard className="h-4 w-4 inline mr-2" />
-                Abonnements
-              </button>
-              <button 
-                onClick={handleContactClick}
-                className="text-neutral-600 hover:text-guinea-green font-medium transition-colors duration-300"
-              >
-                <MessageCircle className="h-4 w-4 inline mr-2" />
-                Contact
-              </button>
-            </nav>
-
-            {/* Auth Button */}
-            <button 
-              onClick={handleLoginClick}
-              className="bg-guinea-green text-white px-4 py-2 rounded-lg hover:bg-guinea-green-dark transition-all duration-300 transform hover:scale-105"
-            >
-              Se Connecter
-            </button>
-          </div>
-        </div>
-      </header>
+      {/* Use Header component */}
+      <Header />
 
       {/* Main Content */}
       <div className="flex items-center justify-center p-4 py-12">

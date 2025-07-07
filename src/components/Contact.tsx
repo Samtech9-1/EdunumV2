@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Send, CheckCircle, User, MessageSquare } from 'lucide-react';
-import logoEduNum from './common/Images/eduNum.png';
+import Header from './Header';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -33,12 +33,11 @@ const Contact = () => {
     }, 1500);
   };
 
-  const handleHomeClick = () => {
-    window.location.href = '/';
-  };
-
   return (
-    <div className="min-h-screen bg-gradient-guinea">
+    <div className="min-h-screen bg-neutral-50">
+      {/* Use Header component */}
+      <Header />
+
       {/* Success Overlay */}
       {isSubmitted && (
         <div className="overlay">
@@ -52,9 +51,10 @@ const Contact = () => {
         </div>
       )}
 
-      <div className="container mx-auto px-4 py-8 min-h-screen flex items-center">
-        <div className="w-full max-w-6xl mx-auto">
-          <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
+      {/* Main Content */}
+      <div className="py-12 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl border border-white/50 overflow-hidden">
             <div className="grid lg:grid-cols-2">
               {/* Left side - Contact Info */}
               <div className="bg-gradient-guinea p-8 lg:p-12 text-white relative overflow-hidden">
@@ -66,21 +66,10 @@ const Contact = () => {
                   <div className="w-24 h-24 bg-white rounded-full blur-xl"></div>
                 </div>
 
-                {/* Header */}
+                {/* Content */}
                 <div className="relative z-10">
-                  <button 
-                    onClick={handleHomeClick}
-                    className="inline-flex items-center space-x-3 mb-8 text-white/80 hover:text-white transition-colors"
-                  >
-                    <img 
-                      src={logoEduNum} 
-                      alt="EDU NUM Logo" 
-                      className="h-10 w-auto"
-                    />                   
-                  </button>
-
                   <h1 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
-                    Registration
+                    Contactez-nous
                   </h1>
 
                   {/* Contact Information */}
@@ -91,7 +80,7 @@ const Contact = () => {
                       </div>
                       <div>
                         <p className="text-white/80 text-sm">Téléphone</p>
-                        <p className="text-white font-semibold text-lg">P: +1 234 567 8901</p>
+                        <p className="text-white font-semibold text-lg">+224 623 567 890</p>
                       </div>
                     </div>
 
@@ -101,7 +90,7 @@ const Contact = () => {
                       </div>
                       <div>
                         <p className="text-white/80 text-sm">Email</p>
-                        <p className="text-white font-semibold text-lg">E: info@demolink.org</p>
+                        <p className="text-white font-semibold text-lg">info@edunum.gn</p>
                       </div>
                     </div>
 
@@ -138,10 +127,10 @@ const Contact = () => {
               </div>
 
               {/* Right side - Contact Form */}
-              <div className="bg-neutral-50 p-8 lg:p-12">
+              <div className="p-8 lg:p-12">
                 <div className="max-w-md mx-auto">
                   <h2 className="text-2xl font-bold text-neutral-900 mb-6 text-center">
-                    Contactez-nous
+                    Envoyez-nous un message
                   </h2>
                   <p className="text-neutral-600 text-center mb-8">
                     Remplissez le formulaire ci-dessous et nous vous répondrons rapidement.
@@ -150,108 +139,98 @@ const Contact = () => {
                   <form onSubmit={handleSubmit} className="space-y-6">
                     {/* First Name */}
                     <div>
-                      <label htmlFor="firstName" className="form-label-guinea">
-                        First name <span className="text-guinea-red">*</span>
+                      <label htmlFor="firstName" className="flex items-center gap-2 text-sm font-medium text-neutral-700 mb-2">
+                        <User className="h-5 w-5" />
+                        Prénom <span className="text-guinea-red">*</span>
                       </label>
-                      <div className="relative">
-                        <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-neutral-400" />
-                        <input
-                          type="text"
-                          id="firstName"
-                          name="firstName"
-                          required
-                          value={formData.firstName}
-                          onChange={handleInputChange}
-                          className="form-input-guinea pl-10"
-                          placeholder="Votre prénom"
-                        />
-                      </div>
+                      <input
+                        type="text"
+                        id="firstName"
+                        name="firstName"
+                        required
+                        value={formData.firstName}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 bg-white border border-neutral-300 rounded-xl text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent transition-all"
+                        placeholder="Votre prénom"
+                      />
                     </div>
 
                     {/* Last Name */}
                     <div>
-                      <label htmlFor="lastName" className="form-label-guinea">
-                        Last name <span className="text-guinea-red">*</span>
+                      <label htmlFor="lastName" className="flex items-center gap-2 text-sm font-medium text-neutral-700 mb-2">
+                        <User className="h-5 w-5" />
+                        Nom <span className="text-guinea-red">*</span>
                       </label>
-                      <div className="relative">
-                        <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-neutral-400" />
-                        <input
-                          type="text"
-                          id="lastName"
-                          name="lastName"
-                          required
-                          value={formData.lastName}
-                          onChange={handleInputChange}
-                          className="form-input-guinea pl-10"
-                          placeholder="Votre nom"
-                        />
-                      </div>
+                      <input
+                        type="text"
+                        id="lastName"
+                        name="lastName"
+                        required
+                        value={formData.lastName}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 bg-white border border-neutral-300 rounded-xl text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent transition-all"
+                        placeholder="Votre nom"
+                      />
                     </div>
 
                     {/* Email */}
                     <div>
-                      <label htmlFor="email" className="form-label-guinea">
-                        Email address <span className="text-guinea-red">*</span>
+                      <label htmlFor="email" className="flex items-center gap-2 text-sm font-medium text-neutral-700 mb-2">
+                        <Mail className="h-5 w-5" />
+                        Email <span className="text-guinea-red">*</span>
                       </label>
-                      <div className="relative">
-                        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-neutral-400" />
-                        <input
-                          type="email"
-                          id="email"
-                          name="email"
-                          required
-                          value={formData.email}
-                          onChange={handleInputChange}
-                          className="form-input-guinea pl-10"
-                          placeholder="votre@email.com"
-                        />
-                      </div>
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        required
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 bg-white border border-neutral-300 rounded-xl text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent transition-all"
+                        placeholder="votre@email.com"
+                      />
                     </div>
 
                     {/* Phone */}
                     <div>
-                      <label htmlFor="phone" className="form-label-guinea">
-                        Phone <span className="text-guinea-red">*</span>
+                      <label htmlFor="phone" className="flex items-center gap-2 text-sm font-medium text-neutral-700 mb-2">
+                        <Phone className="h-5 w-5" />
+                        Téléphone <span className="text-guinea-red">*</span>
                       </label>
-                      <div className="relative">
-                        <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-neutral-400" />
-                        <input
-                          type="tel"
-                          id="phone"
-                          name="phone"
-                          required
-                          value={formData.phone}
-                          onChange={handleInputChange}
-                          className="form-input-guinea pl-10"
-                          placeholder="+224 XXX XXX XXX"
-                        />
-                      </div>
+                      <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        required
+                        value={formData.phone}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 bg-white border border-neutral-300 rounded-xl text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent transition-all"
+                        placeholder="+224 XXX XXX XXX"
+                      />
                     </div>
 
                     {/* Message */}
                     <div>
-                      <label htmlFor="message" className="form-label-guinea">
+                      <label htmlFor="message" className="flex items-center gap-2 text-sm font-medium text-neutral-700 mb-2">
+                        <MessageSquare className="h-5 w-5" />
                         Message
                       </label>
-                      <div className="relative">
-                        <MessageSquare className="absolute left-3 top-3 h-5 w-5 text-neutral-400" />
-                        <textarea
-                          id="message"
-                          name="message"
-                          rows={4}
-                          value={formData.message}
-                          onChange={handleInputChange}
-                          className="form-input-guinea pl-10 resize-none"
-                          placeholder="Votre message..."
-                        />
-                      </div>
+                      <textarea
+                        id="message"
+                        name="message"
+                        rows={4}
+                        value={formData.message}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 bg-white border border-neutral-300 rounded-xl text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent transition-all resize-none"
+                        placeholder="Votre message..."
+                      />
                     </div>
 
                     {/* Submit Button */}
                     <button
                       type="submit"
                       disabled={isLoading}
-                      className="w-full bg-gradient-guinea text-white py-4 px-6 rounded-full font-semibold text-lg hover:shadow-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2"
+                      className="w-full bg-guinea-green text-white py-3 px-6 rounded-xl font-semibold text-lg hover:bg-guinea-green-dark transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
                     >
                       {isLoading ? (
                         <>
@@ -261,7 +240,7 @@ const Contact = () => {
                       ) : (
                         <>
                           <Send className="h-5 w-5" />
-                          <span>Register now!</span>
+                          <span>Envoyer le message</span>
                         </>
                       )}
                     </button>
