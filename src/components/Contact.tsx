@@ -57,76 +57,6 @@ const Contact = () => {
           <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl border border-white/50 overflow-hidden">
             <div className="grid lg:grid-cols-2">
               {/* Left side - Contact Info */}
-              <div className="bg-gradient-guinea p-8 lg:p-12 text-white relative overflow-hidden">
-                {/* Background decorative elements */}
-                <div className="absolute top-10 right-10 opacity-20">
-                  <div className="w-32 h-32 bg-white rounded-full blur-2xl"></div>
-                </div>
-                <div className="absolute bottom-10 left-10 opacity-10">
-                  <div className="w-24 h-24 bg-white rounded-full blur-xl"></div>
-                </div>
-
-                {/* Content */}
-                <div className="relative z-10">
-                  <h1 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
-                    Contactez-nous
-                  </h1>
-
-                  {/* Contact Information */}
-                  <div className="space-y-6 mb-8">
-                    <div className="flex items-center space-x-4">
-                      <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
-                        <Phone className="h-6 w-6 text-white" />
-                      </div>
-                      <div>
-                        <p className="text-white/80 text-sm">Téléphone</p>
-                        <p className="text-white font-semibold text-lg">+224 623 567 890</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center space-x-4">
-                      <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
-                        <Mail className="h-6 w-6 text-white" />
-                      </div>
-                      <div>
-                        <p className="text-white/80 text-sm">Email</p>
-                        <p className="text-white font-semibold text-lg">info@edunum.gn</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center space-x-4">
-                      <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
-                        <MapPin className="h-6 w-6 text-white" />
-                      </div>
-                      <div>
-                        <p className="text-white/80 text-sm">Adresse</p>
-                        <p className="text-white font-semibold text-lg">Quartier Almamya, Conakry</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Additional Info */}
-                  <div className="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/20">
-                    <h3 className="font-semibold text-lg mb-4">Horaires d'ouverture</h3>
-                    <div className="space-y-2 text-sm">
-                      <div className="flex justify-between">
-                        <span>Lundi - Vendredi</span>
-                        <span>8h00 - 18h00</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Samedi</span>
-                        <span>9h00 - 15h00</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Dimanche</span>
-                        <span>Fermé</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Right side - Contact Form */}
               <div className="p-8 lg:p-12">
                 <div className="max-w-md mx-auto">
                   <h2 className="text-2xl font-bold text-neutral-900 mb-6 text-center">
@@ -254,6 +184,75 @@ const Contact = () => {
                   </div>
                 </div>
               </div>
+              {/* Right side - Contact Form */}
+              <div className="bg-gradient-guinea p-8 lg:p-12 text-white relative overflow-hidden">
+                {/* Background decorative elements */}
+                <div className="absolute top-10 right-10 opacity-20">
+                  <div className="w-32 h-32 bg-white rounded-full blur-2xl"></div>
+                </div>
+                <div className="absolute bottom-10 left-10 opacity-10">
+                  <div className="w-24 h-24 bg-white rounded-full blur-xl"></div>
+                </div>
+
+                {/* Content */}
+                <div className="relative z-10">
+                  <h1 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
+                    Contactez-nous
+                  </h1>
+
+                  {/* Contact Information */}
+                  <div className="space-y-6 mb-8">
+                    <div className="flex items-center space-x-4">
+                      <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+                        <Phone className="h-6 w-6 text-white" />
+                      </div>
+                      <div>
+                        <p className="text-white/80 text-sm">Téléphone</p>
+                        <p className="text-white font-semibold text-lg">+224 623 567 890</p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center space-x-4">
+                      <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+                        <Mail className="h-6 w-6 text-white" />
+                      </div>
+                      <div>
+                        <p className="text-white/80 text-sm">Email</p>
+                        <p className="text-white font-semibold text-lg">info@edunum.gn</p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center space-x-4">
+                      <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+                        <MapPin className="h-6 w-6 text-white" />
+                      </div>
+                      <div>
+                        <p className="text-white/80 text-sm">Adresse</p>
+                        <p className="text-white font-semibold text-lg">Quartier Almamya, Conakry</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Additional Info */}
+                  <div className="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/20">
+                    <h3 className="font-semibold text-lg mb-4">Horaires d'ouverture</h3>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between">
+                        <span>Lundi - Vendredi</span>
+                        <span>8h00 - 18h00</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Samedi</span>
+                        <span>9h00 - 15h00</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Dimanche</span>
+                        <span>Fermé</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>              
             </div>
           </div>
         </div>
