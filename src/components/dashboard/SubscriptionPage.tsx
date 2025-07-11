@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { UserService } from '../../services/UserService';
 import { 
-  ArrowLeft, 
   Crown, 
   Star, 
   Calendar, 
@@ -16,7 +15,6 @@ import {
   AlertCircle,
   ChevronDown
 } from 'lucide-react';
-import DashboardLayout from './DashboardLayout';
 
 interface SubscriptionPageProps {
   onBack: () => void;
@@ -34,8 +32,8 @@ const SubscriptionPage: React.FC<SubscriptionPageProps> = ({ onBack }) => {
     const fetchUserAbonnement = async () => {
       try {
         setLoading(true);
-        const abonnement = await UserService.getUserAbonnement();
-        setUserAbonnement(abonnement || {});
+        const response = await UserService.getStudentSubscriptionData();
+        setUserAbonnement(response?.data || {});
       } catch (err) {
         console.error("Erreur lors de la récupération de l'abonnement:", err);
         setError("Erreur lors de la récupération de vos informations d'abonnement");
@@ -52,15 +50,21 @@ const SubscriptionPage: React.FC<SubscriptionPageProps> = ({ onBack }) => {
       setSubscribing(true);
       setError(null);
       
-      const result = await UserService.souscrireAbonnementMensuel(nombreMois);
+      const studentData = {
+        GradeLevelId: "default-grade",
+        SubscriptionType: 1,
+        NumberOfMonths: nombreMois
+      };
       
-      if (result.success) {
+      const result = await UserService.StudentSubscription(studentData);
+      
+      if (result && !result.code) {
         setSubscriptionSuccess(true);
         setTimeout(() => {
-          window.location.href = '/dashboard';
+          onBack();
         }, 2000);
       } else {
-        throw new Error(result.message || "Erreur lors de la souscription");
+        throw new Error(result?.message || "Erreur lors de la souscription");
       }
     } catch (error) {
       console.error("Erreur lors de la souscription :", error);
@@ -75,15 +79,21 @@ const SubscriptionPage: React.FC<SubscriptionPageProps> = ({ onBack }) => {
       setSubscribing(true);
       setError(null);
       
-      const result = await UserService.souscrireAbonnementScolaire();
+      const studentData = {
+        GradeLevelId: "default-grade",
+        SubscriptionType: 2,
+        NumberOfMonths: null
+      };
       
-      if (result.success) {
+      const result = await UserService.StudentSubscription(studentData);
+      
+      if (result && !result.code) {
         setSubscriptionSuccess(true);
         setTimeout(() => {
-          window.location.href = '/dashboard';
+          onBack();
         }, 2000);
       } else {
-        throw new Error(result.message || "Erreur lors de la souscription");
+        throw new Error(result?.message || "Erreur lors de la souscription");
       }
     } catch (error) {
       console.error("Erreur lors de la souscription :", error);
@@ -95,20 +105,20 @@ const SubscriptionPage: React.FC<SubscriptionPageProps> = ({ onBack }) => {
 
   if (loading) {
     return (
-      <DashboardLayout currentPage="subscriptions">
+      <div className="p-6">
         <div className="flex items-center justify-center h-64">
           <div className="text-center">
             <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
             <p className="text-gray-600 text-lg">Chargement de vos abonnements...</p>
           </div>
         </div>
-      </DashboardLayout>
+      </div>
     );
   }
 
   if (error) {
     return (
-      <DashboardLayout currentPage="subscriptions">
+      <div className="p-6">
         <div className="flex items-center justify-center h-64">
           <div className="text-center max-w-md mx-4">
             <div className="bg-red-50 border border-red-200 rounded-lg p-6">
@@ -125,7 +135,7 @@ const SubscriptionPage: React.FC<SubscriptionPageProps> = ({ onBack }) => {
             </div>
           </div>
         </div>
-      </DashboardLayout>
+      </div>
     );
   }
 
@@ -133,7 +143,7 @@ const SubscriptionPage: React.FC<SubscriptionPageProps> = ({ onBack }) => {
   const isMonthlySubscription = userAbonnement.nom?.toLowerCase().includes('mensuel');
 
   return (
-    <DashboardLayout currentPage="subscriptions">
+    <div className="p-6">
       {/* Success Overlay */}
       {subscriptionSuccess && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
@@ -147,23 +157,7 @@ const SubscriptionPage: React.FC<SubscriptionPageProps> = ({ onBack }) => {
         </div>
       )}
 
-      <div className="p-6">
-        <div className="mb-8">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">Mes Abonnements</h1>
-              <p className="text-gray-600">Gérez vos abonnements et accédez à nos formations</p>
-            </div>
-            <button
-              onClick={onBack}
-              className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors"
-            >
-              <ArrowLeft className="h-5 w-5" />
-              <span>Retour aux cours</span>
-            </button>
-          </div>
-        </div>
-
+      <div className="max-w-7xl mx-auto">
         {hasActiveSubscription ? (
           /* Affichage de l'abonnement actuel */
           <div className="space-y-8">
@@ -427,7 +421,7 @@ const SubscriptionPage: React.FC<SubscriptionPageProps> = ({ onBack }) => {
           </div>
         )}
       </div>
-    </DashboardLayout>
+    </div>
   );
 };
 
