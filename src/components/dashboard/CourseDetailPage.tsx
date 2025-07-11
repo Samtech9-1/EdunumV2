@@ -107,16 +107,35 @@ const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ courseId, onBack })
       setLoading(true);
       setError(null);
       
-      const courseData = await UserService.getCourseDetails(courseId);
+      const response = await UserService.getModuleVideosData(courseId);
+      const courseData = response.data;
       
-      if (!courseData || !courseData.modules || courseData.modules.length === 0) {
+      if (!courseData || !Array.isArray(courseData) || courseData.length === 0) {
         throw new Error("Aucun contenu disponible pour ce cours");
       }
 
-      setCourse(courseData);
+      // Transform the data to match expected structure
+      const transformedCourse = {
+        title: `Cours ${courseId}`,
+        description: "Cours de formation",
+        modules: [{
+          title: "Module principal",
+          chapitres: [{
+            title: "Chapitre 1",
+            sections: courseData.map((video, index) => ({
+              idSection: video.id || `section-${index}`,
+              title: video.title || `Vidéo ${index + 1}`,
+              duration: video.duration || "15:00",
+              videoPath: video.videoUrl || video.videoPath || ""
+            }))
+          }]
+        }]
+      };
+      
+      setCourse(transformedCourse);
       
       // Définir la première vidéo comme vidéo actuelle
-      const firstModule = courseData.modules[0];
+      const firstModule = transformedCourse.modules[0];
       if (firstModule && firstModule.chapitres && firstModule.chapitres.length > 0) {
         const firstChapter = firstModule.chapitres[0];
         if (firstChapter && firstChapter.sections && firstChapter.sections.length > 0) {
