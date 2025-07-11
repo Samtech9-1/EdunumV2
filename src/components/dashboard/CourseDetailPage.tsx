@@ -26,7 +26,7 @@ import {
   Home,
   Shield
 } from 'lucide-react';
-import { DashboardLayout } from './DashboardLayout';
+import DashboardLayout from './DashboardLayout';
 
 interface CourseDetailPageProps {
   courseId: string;

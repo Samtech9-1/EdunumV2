@@ -16,7 +16,7 @@ import {
   AlertCircle,
   ChevronDown
 } from 'lucide-react';
-import { DashboardLayout } from './DashboardLayout';
+import DashboardLayout from './DashboardLayout';
 
 interface SubscriptionPageProps {
   onBack: () => void;
