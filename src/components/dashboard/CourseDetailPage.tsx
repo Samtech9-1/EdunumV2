@@ -68,14 +68,14 @@ const ErrorPageWithMenu: React.FC<{ error: string; onBack: () => void; onLogout:
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800">
+    <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-slate-800/50 backdrop-blur-sm border-b border-slate-700/50 sticky top-0 z-40">
+      <header className="bg-white border-b border-gray-200 sticky top-0 z-40">
         <div className="flex items-center justify-between px-4 py-3">
           <div className="flex items-center space-x-4">
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="lg:hidden text-white hover:text-guinea-green transition-colors"
+              className="lg:hidden text-gray-600 hover:text-guinea-green transition-colors"
             >
               {sidebarOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
@@ -92,15 +92,15 @@ const ErrorPageWithMenu: React.FC<{ error: string; onBack: () => void; onLogout:
           <div className="flex items-center space-x-4">
             <button
               onClick={onBack}
-              className="flex items-center space-x-2 bg-guinea-green hover:bg-guinea-green-dark text-white px-4 py-2 rounded-lg transition-all duration-300 transform hover:scale-105"
+              className="flex items-center space-x-2 bg-guinea-green hover:bg-guinea-green-dark text-white px-4 py-2 rounded-lg transition-all duration-300"
             >
               <ChevronLeft className="h-4 w-4" />
               <span>Retour aux cours</span>
             </button>
-            <button className="text-white hover:text-guinea-green transition-colors">
+            <button className="text-gray-600 hover:text-guinea-green transition-colors">
               <Mail className="h-5 w-5" />
             </button>
-            <button className="text-white hover:text-guinea-green transition-colors">
+            <button className="text-gray-600 hover:text-guinea-green transition-colors">
               <Bell className="h-5 w-5" />
             </button>
             <div className="w-8 h-8 bg-guinea-green rounded-full flex items-center justify-center">
@@ -114,7 +114,7 @@ const ErrorPageWithMenu: React.FC<{ error: string; onBack: () => void; onLogout:
         {/* Sidebar */}
         <aside className={`${
           sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-        } lg:translate-x-0 fixed lg:static inset-y-0 left-0 z-30 w-56 bg-slate-800/90 backdrop-blur-sm border-r border-slate-700/50 transition-transform duration-300 ease-in-out`}>
+        } lg:translate-x-0 fixed lg:static inset-y-0 left-0 z-30 w-56 bg-white border-r border-gray-200 transition-transform duration-300 ease-in-out`}>
           <div className="p-4">
             <nav className="space-y-1">
               {menuItems.map((item, index) => (
@@ -123,8 +123,8 @@ const ErrorPageWithMenu: React.FC<{ error: string; onBack: () => void; onLogout:
                   onClick={item.onClick || (() => {})}
                   className={`w-full flex items-center space-x-3 px-3 py-2 rounded-lg transition-all duration-200 text-sm ${
                     item.active 
-                      ? 'bg-guinea-green/20 text-guinea-green border border-guinea-green/30' 
-                      : 'text-slate-300 hover:text-white hover:bg-slate-700/50'
+                      ? 'bg-guinea-green/10 text-guinea-green border-r-2 border-guinea-green' 
+                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
                   }`}
                 >
                   <item.icon className="h-4 w-4" />
@@ -138,13 +138,13 @@ const ErrorPageWithMenu: React.FC<{ error: string; onBack: () => void; onLogout:
 
         {/* Main Content */}
         <main className="flex-1 flex items-center justify-center p-6">
-          <div className="text-center text-white max-w-md mx-4">
-            <div className="bg-red-500/20 border border-red-500/30 rounded-lg p-8">
+          <div className="text-center text-gray-800 max-w-md mx-4">
+            <div className="bg-red-50 border border-red-200 rounded-lg p-8">
               <div className="w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <X className="h-8 w-8 text-red-400" />
+                <X className="h-8 w-8 text-red-600" />
               </div>
-              <h2 className="text-xl font-bold text-white mb-4">Erreur</h2>
-              <p className="text-red-300 mb-6">{error}</p>
+              <h2 className="text-xl font-bold text-gray-900 mb-4">Erreur</h2>
+              <p className="text-red-600 mb-6">{error}</p>
               <div className="space-y-3">
                 <button
                   onClick={onBack}
@@ -155,7 +155,7 @@ const ErrorPageWithMenu: React.FC<{ error: string; onBack: () => void; onLogout:
                 </button>
                 <button
                   onClick={() => window.location.href = '/'}
-                  className="w-full bg-slate-600 hover:bg-slate-500 text-white px-6 py-3 rounded-lg transition-colors flex items-center justify-center space-x-2"
+                  className="w-full bg-gray-600 hover:bg-gray-500 text-white px-6 py-3 rounded-lg transition-colors flex items-center justify-center space-x-2"
                 >
                   <WifiOff className="h-4 w-4" />
                   <span>Mode hors connexion</span>
@@ -169,7 +169,7 @@ const ErrorPageWithMenu: React.FC<{ error: string; onBack: () => void; onLogout:
       {/* Mobile Sidebar Overlay */}
       {sidebarOpen && (
         <div 
-          className="lg:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-20"
+          className="lg:hidden fixed inset-0 bg-black/50 z-20"
           onClick={() => setSidebarOpen(false)}
         />
       )}
@@ -492,10 +492,10 @@ const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ courseId, onBack })
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-guinea-green border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-white text-lg">Chargement du cours...</p>
+          <p className="text-gray-600 text-lg">Chargement du cours...</p>
         </div>
       </div>
     );
@@ -521,7 +521,7 @@ const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ courseId, onBack })
           <div className="flex items-center space-x-4">
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="lg:hidden text-gray-600 hover:text-blue-600 transition-colors"
+              className="lg:hidden text-gray-600 hover:text-guinea-green transition-colors"
             >
               {sidebarOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
@@ -543,7 +543,7 @@ const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ courseId, onBack })
           <div className="flex items-center space-x-4">
             <button
               onClick={onBack}
-              className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-all duration-300"
+              className="flex items-center space-x-2 bg-guinea-green hover:bg-guinea-green-dark text-white px-4 py-2 rounded-lg transition-all duration-300"
             >
               <ChevronLeft className="h-4 w-4" />
               <span className="hidden md:inline">Retour aux cours</span>
@@ -555,14 +555,14 @@ const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ courseId, onBack })
               <WifiOff className="h-4 w-4" />
               <span className="hidden md:inline">Mode hors connexion</span>
             </button>
-            <button className="text-gray-600 hover:text-blue-600 transition-colors">
+            <button className="text-gray-600 hover:text-guinea-green transition-colors">
               <Mail className="h-5 w-5" />
             </button>
-            <button className="text-gray-600 hover:text-blue-600 transition-colors">
+            <button className="text-gray-600 hover:text-guinea-green transition-colors">
               <Bell className="h-5 w-5" />
             </button>
             <span className="text-gray-800 text-sm hidden lg:block">{course?.title}</span>
-            <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+            <div className="w-8 h-8 bg-guinea-green rounded-full flex items-center justify-center">
               <User className="h-5 w-5 text-white" />
             </div>
           </div>
@@ -582,7 +582,7 @@ const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ courseId, onBack })
                   onClick={item.onClick || (() => {})}
                   className={`w-full flex items-center space-x-3 px-3 py-2 rounded-lg transition-all duration-200 text-sm ${
                     item.active 
-                      ? 'bg-blue-50 text-blue-600 border-r-2 border-blue-600' 
+                      ? 'bg-guinea-green/10 text-guinea-green border-r-2 border-guinea-green' 
                       : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
                   }`}
                 >
@@ -707,8 +707,8 @@ const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ courseId, onBack })
                       <span>{course?.title}</span>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <Shield className="h-4 w-4 text-blue-600" />
-                      <span className="text-blue-600">Contenu protégé</span>
+                      <Shield className="h-4 w-4 text-guinea-green" />
+                      <span className="text-guinea-green">Contenu protégé</span>
                     </div>
                   </div>
                 </motion.div>
@@ -737,10 +737,10 @@ const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ courseId, onBack })
                 <div className="mt-4">
                   <div className="flex justify-between text-sm mb-2">
                     <span className="text-gray-600">Progression</span>
-                    <span className="text-blue-600 font-medium">0%</span>
+                    <span className="text-guinea-green font-medium">0%</span>
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-2">
-                    <div className="bg-blue-600 h-2 rounded-full" style={{ width: '0%' }}></div>
+                    <div className="bg-guinea-green h-2 rounded-full" style={{ width: '0%' }}></div>
                   </div>
                 </div>
               </div>
@@ -772,7 +772,7 @@ const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ courseId, onBack })
                               <div>
                                 <h4 className="text-gray-900 font-medium text-sm lg:text-base">{chapitre.title}</h4>
                                 <p className="text-gray-500 text-xs">{chapitre.sections?.length || 0} vidéo(s)</p>
-                              </div>
+                              <span className="text-guinea-green text-xs lg:text-sm font-bold">{chapitreIndex + 1}</span>
                             </div>
                             {expandedChapitres.has(`chapitre-${chapitreIndex}`) ? (
                               <ChevronUp className="h-4 w-4 text-gray-400" />
@@ -798,7 +798,7 @@ const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ courseId, onBack })
                                       <li key={section.idSection} className="video-item-wrapper">
                                         <motion.div
                                           className={`video-item flex items-center space-x-3 p-3 lg:p-4 text-left hover:bg-gray-50 transition-colors border-b border-gray-100 last:border-b-0 cursor-pointer ${
-                                            isItemSelected ? 'bg-blue-50 border-l-4 border-l-blue-600' : ''
+                                            isItemSelected ? 'bg-guinea-green/10 border-l-4 border-l-guinea-green' : ''
                                           }`}
                                           onClick={() => handleVideoClick(section)}
                                           whileHover={{ x: 5 }}
@@ -810,14 +810,14 @@ const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ courseId, onBack })
                                         >
                                           <div className="w-5 h-5 lg:w-6 lg:h-6 bg-gray-200 rounded-full flex items-center justify-center flex-shrink-0">
                                             {isItemSelected ? (
-                                              <PauseCircle className="h-3 w-3 lg:h-4 lg:w-4 text-blue-600" />
+                                              <PauseCircle className="h-3 w-3 lg:h-4 lg:w-4 text-guinea-green" />
                                             ) : (
                                               <Play className="h-3 w-3 lg:h-4 lg:w-4 text-gray-500 video-icon" />
                                             )}
                                           </div>
                                           <div className="flex-1 min-w-0">
                                             <span className={`video-title text-xs lg:text-sm font-medium truncate block ${
-                                              isItemSelected ? 'text-blue-600' : 'text-gray-900'
+                                              isItemSelected ? 'text-guinea-green' : 'text-gray-900'
                                             }`}>
                                               {section.title}
                                             </span>
