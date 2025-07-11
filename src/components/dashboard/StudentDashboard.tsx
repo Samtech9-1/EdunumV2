@@ -15,7 +15,7 @@ import {
   BarChart3,
   Plus,
   Bell,
-  Settings
+  Settings, LogOut
 } from 'lucide-react';
 
 const StudentDashboard = () => {
@@ -38,7 +38,7 @@ const StudentDashboard = () => {
         }
 
         const user = await UserService.getCurrentUser();
-        setCurrentUser(user);
+        setCurrentUser(user?.data);
       } catch (error) {
         console.error("Erreur de vérification du token :", error);
         window.location.href = '/login';
@@ -198,16 +198,15 @@ const StudentDashboard = () => {
 
   const headerActions = (
     <>
-      <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors flex items-center space-x-2">
-        <Plus className="h-4 w-4" />
-        <span>Nouveau cours</span>
-      </button>
-      <button className="text-gray-600 hover:text-blue-600 transition-colors">
-        <Bell className="h-5 w-5" />
-      </button>
-      <button className="text-gray-600 hover:text-blue-600 transition-colors">
-        <Settings className="h-5 w-5" />
-      </button>
+     
+      <a
+  href="/logout"
+  className="flex items-center space-x-2 bg-gradient-guinea-green text-white px-4 py-2 rounded-lg hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+>
+  <LogOut className="h-4 w-4" />
+  <span>Déconnexion</span>
+</a>
+     
     </>
   );
 
@@ -215,13 +214,13 @@ const StudentDashboard = () => {
     <DashboardLayout 
       currentView={currentView} 
       onViewChange={handleViewChange}
-      title={`Salut ${currentUser?.prenom || 'Étudiant'} - voici ce qui se passe avec vos cours aujourd'hui`}
+     title={`Bonjour ${currentUser?.nom} - ${currentUser?.prenom}!`}
       headerActions={headerActions}
     >
       <div className="p-6">
         <div className="max-w-7xl mx-auto">
           {/* Stats Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <div className="bg-white rounded-lg p-6 border border-gray-200">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider">Cours du jour</h3>
@@ -265,7 +264,7 @@ const StudentDashboard = () => {
                 <p className="ml-2 text-sm font-medium text-green-600">+36%</p>
               </div>
             </div>
-          </div>
+          </div> */}
 
           {/* Main Content Grid */}
           <div className="grid lg:grid-cols-3 gap-8">
@@ -275,12 +274,12 @@ const StudentDashboard = () => {
                 <div className="p-6 border-b border-gray-200">
                   <div className="flex items-center justify-between">
                     <h2 className="text-lg font-semibold text-gray-900">Mes Cours</h2>
-                    <div className="flex items-center space-x-2">
+                    {/* <div className="flex items-center space-x-2">
                       <button className="px-3 py-1 text-sm bg-blue-600 text-white rounded-lg">12 Mois</button>
                       <button className="px-3 py-1 text-sm text-gray-600 hover:bg-gray-100 rounded-lg">6 Mois</button>
                       <button className="px-3 py-1 text-sm text-gray-600 hover:bg-gray-100 rounded-lg">30 Jours</button>
                       <button className="px-3 py-1 text-sm text-gray-600 hover:bg-gray-100 rounded-lg">7 Jours</button>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
 
@@ -338,9 +337,9 @@ const StudentDashboard = () => {
             </div>
 
             {/* Right Sidebar */}
-            <div className="space-y-6">
+            {/* <div className="space-y-6"> */}
               {/* Progress Overview */}
-              <div className="bg-white rounded-lg border border-gray-200 p-6">
+              {/* <div className="bg-white rounded-lg border border-gray-200 p-6">
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-lg font-semibold text-gray-900">Progression</h3>
                   <select className="text-sm border border-gray-300 rounded-lg px-3 py-1">
@@ -381,10 +380,10 @@ const StudentDashboard = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
 
               {/* Recent Activity */}
-              <div className="bg-white rounded-lg border border-gray-200 p-6">
+              {/* <div className="bg-white rounded-lg border border-gray-200 p-6">
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">Activité récente</h3>
                 
                 <div className="space-y-4">
@@ -421,8 +420,8 @@ const StudentDashboard = () => {
                     <span className="text-xs text-gray-400">3j</span>
                   </div>
                 </div>
-              </div>
-            </div>
+              </div> */}
+            {/* </div> */}
           </div>
         </div>
       </div>

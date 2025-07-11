@@ -265,7 +265,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ onBack, setSidebarOpen 
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="w-16 h-16 border-4 border-green-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-gray-600 text-lg">Chargement du profil...</p>
         </div>
       </div>
@@ -292,7 +292,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ onBack, setSidebarOpen 
             <div className="bg-white rounded-xl p-8 border border-gray-200 mb-8">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between">
                 <div className="flex items-center space-x-6 mb-6 md:mb-0">
-                  <div className="w-20 h-20 bg-gradient-to-br from-blue-600 to-blue-500 rounded-full flex items-center justify-center text-white text-2xl font-bold">
+                  <div className="w-20 h-20 bg-gradient-to-br from-green-600 to-green-500 rounded-full flex items-center justify-center text-white text-2xl font-bold">
                     {profile.prenom.charAt(0)}{profile.nom.charAt(0)}
                   </div>
                   <div>
@@ -300,7 +300,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ onBack, setSidebarOpen 
                       {profile.prenom} {profile.nom}
                     </h1>
                     <p className="text-gray-600 mb-1">{profile.email}</p>
-                    <div className="inline-flex items-center px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-sm font-medium border border-blue-200">
+                    <div className="inline-flex items-center px-3 py-1 bg-green-50 text-green-600 rounded-full text-sm font-medium border border-green-200">
                       <School className="h-4 w-4 mr-2" />
                       {profile.grade || 'Niveau non spécifié'}
                     </div>
@@ -311,7 +311,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ onBack, setSidebarOpen 
                   {!editMode ? (
                     <button 
                       onClick={handleEdit}
-                      className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105"
+                      className="flex items-center space-x-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105"
                     >
                       <Edit3 className="h-5 w-5" />
                       <span>Modifier le profil</span>
@@ -324,7 +324,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ onBack, setSidebarOpen 
                         className={`flex items-center space-x-2 px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 ${
                           saveSuccess 
                             ? 'bg-green-500 text-white' 
-                            : 'bg-blue-600 hover:bg-blue-700 text-white'
+                            : 'bg-green-600 hover:bg-green-700 text-white'
                         } ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                       >
                         {saveSuccess ? (
@@ -357,7 +357,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ onBack, setSidebarOpen 
               {/* Personal Information */}
               <div className="bg-white rounded-xl p-6 border border-gray-200">
                 <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
-                  <User className="h-6 w-6 mr-3 text-blue-600" />
+                  <User className="h-6 w-6 mr-3 text-green-600" />
                   Informations personnelles
                 </h2>
                 
@@ -373,7 +373,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ onBack, setSidebarOpen 
                             type="text"
                             value={profile.nom}
                             onChange={(e) => handleInputChange('nom', e.target.value)}
-                            className={`w-full px-4 py-3 bg-white border rounded-lg text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${
+                            className={`w-full px-4 py-3 bg-white border rounded-lg text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all ${
                               formErrors.nom ? 'border-red-500' : 'border-slate-600'
                             }`}
                             placeholder="Votre nom"
@@ -397,7 +397,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ onBack, setSidebarOpen 
                             type="text"
                             value={profile.prenom}
                             onChange={(e) => handleInputChange('prenom', e.target.value)}
-                            className={`w-full px-4 py-3 bg-white border rounded-lg text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${
+                            className={`w-full px-4 py-3 bg-white border rounded-lg text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all ${
                               formErrors.prenom ? 'border-red-500' : 'border-slate-600'
                             }`}
                             placeholder="Votre prénom"
@@ -423,7 +423,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ onBack, setSidebarOpen 
                           type="email"
                           value={profile.email}
                           onChange={(e) => handleInputChange('email', e.target.value)}
-                          className={`w-full px-4 py-3 bg-white border rounded-lg text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${
+                          className={`w-full px-4 py-3 bg-white border rounded-lg text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all ${
                             formErrors.email ? 'border-red-500' : 'border-slate-600'
                           }`}
                           placeholder="votre@email.com"
@@ -448,7 +448,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ onBack, setSidebarOpen 
                           type="tel"
                           value={profile.telephone}
                           onChange={(e) => handleInputChange('telephone', e.target.value)}
-                          className={`w-full px-4 py-3 bg-white border rounded-lg text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${
+                          className={`w-full px-4 py-3 bg-white border rounded-lg text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all ${
                             formErrors.telephone ? 'border-red-500' : 'border-slate-600'
                           }`}
                           placeholder="6XXXXXXXX"
@@ -472,7 +472,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ onBack, setSidebarOpen 
                         <select
                           value={profile.genre}
                           onChange={(e) => handleInputChange('genre', e.target.value)}
-                          className={`w-full px-4 py-3 bg-white border rounded-lg text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${
+                          className={`w-full px-4 py-3 bg-white border rounded-lg text-gray-900 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all ${
                             formErrors.genre ? 'border-red-500' : 'border-slate-600'
                           }`}
                         >
@@ -496,7 +496,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ onBack, setSidebarOpen 
                 {/* Academic Information */}
                 <div className="bg-white rounded-xl p-6 border border-gray-200">
                   <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
-                    <School className="h-6 w-6 mr-3 text-blue-600" />
+                    <School className="h-6 w-6 mr-3 text-green-600" />
                     Informations académiques
                   </h2>
                   
@@ -534,7 +534,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ onBack, setSidebarOpen 
                             type="text"
                             value={profile.etablissement}
                             onChange={(e) => handleInputChange('etablissement', e.target.value)}
-                            className={`w-full px-4 py-3 bg-white border rounded-lg text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${
+                            className={`w-full px-4 py-3 bg-white border rounded-lg text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all ${
                               formErrors.etablissement ? 'border-red-500' : 'border-slate-600'
                             }`}
                             placeholder="Nom de votre établissement"
@@ -553,7 +553,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ onBack, setSidebarOpen 
                 {/* Location Information */}
                 <div className="bg-white rounded-xl p-6 border border-gray-200">
                   <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
-                    <MapPin className="h-6 w-6 mr-3 text-blue-600" />
+                    <MapPin className="h-6 w-6 mr-3 text-green-600" />
                     Localisation
                   </h2>
                   

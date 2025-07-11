@@ -108,7 +108,7 @@ const SubscriptionPage: React.FC<SubscriptionPageProps> = ({ onBack }) => {
       <div className="p-6">
         <div className="flex items-center justify-center h-64">
           <div className="text-center">
-            <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <div className="w-16 h-16 border-4 border-green-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
             <p className="text-gray-600 text-lg">Chargement de vos abonnements...</p>
           </div>
         </div>
@@ -127,7 +127,7 @@ const SubscriptionPage: React.FC<SubscriptionPageProps> = ({ onBack }) => {
               {error.includes("niveau") && (
                 <button
                   onClick={() => window.location.href = '/profile'}
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors"
+                  className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg transition-colors"
                 >
                   Compléter mon profil
                 </button>
@@ -165,8 +165,8 @@ const SubscriptionPage: React.FC<SubscriptionPageProps> = ({ onBack }) => {
             <div className="bg-white rounded-xl p-8 border border-gray-200 shadow-sm">
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center space-x-4">
-                  <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center border border-blue-200">
-                    <Crown className="h-8 w-8 text-blue-600" />
+                  <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center border border-green-200">
+                    <Crown className="h-8 w-8 text-green-600" />
                   </div>
                   <div>
                     <h2 className="text-2xl font-bold text-gray-900">Abonnement Actuel</h2>
@@ -189,7 +189,7 @@ const SubscriptionPage: React.FC<SubscriptionPageProps> = ({ onBack }) => {
 
                 <div className="bg-gray-50 p-4 rounded-lg">
                   <div className="flex items-center space-x-3 mb-2">
-                    <Calendar className="h-5 w-5 text-blue-600" />
+                    <Calendar className="h-5 w-5 text-green-600" />
                     <span className="text-gray-600 text-sm">Date de début</span>
                   </div>
                   <p className="text-gray-900 font-semibold text-lg">{userAbonnement.startDate}</p>
@@ -219,7 +219,7 @@ const SubscriptionPage: React.FC<SubscriptionPageProps> = ({ onBack }) => {
               <div className="flex flex-wrap gap-4">
                 <button
                   onClick={() => window.location.reload()}
-                  className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-colors"
+                  className="flex items-center space-x-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg transition-colors"
                 >
                   <RefreshCw className="h-5 w-5" />
                   <span>Renouveler l'abonnement</span>
@@ -252,7 +252,7 @@ const SubscriptionPage: React.FC<SubscriptionPageProps> = ({ onBack }) => {
                       <select
                         value={nombreMois}
                         onChange={(e) => setNombreMois(Number(e.target.value))}
-                        className="w-full bg-white text-gray-900 border border-gray-300 rounded-lg px-4 py-3 appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        className="w-full bg-white text-gray-900 border border-gray-300 rounded-lg px-4 py-3 appearance-none focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
                       >
                         {Array.from({ length: 9 }, (_, i) => (
                           <option key={i + 1} value={i + 1}>{i + 1} mois</option>
@@ -277,23 +277,23 @@ const SubscriptionPage: React.FC<SubscriptionPageProps> = ({ onBack }) => {
                 </div>
 
                 {/* Yearly Renewal */}
-                <div className="bg-gray-50 p-6 rounded-lg border-2 border-blue-200">
+                <div className="bg-gray-50 p-6 rounded-lg border-2 border-green-200">
                   <div className="flex items-center space-x-3 mb-4">
-                    <Shield className="h-6 w-6 text-blue-600" />
+                    <Shield className="h-6 w-6 text-green-600" />
                     <h4 className="text-lg font-semibold text-gray-900">Renouvellement scolaire</h4>
                   </div>
                   <p className="text-gray-600 mb-4">Abonnement annuel avec 10% de réduction</p>
 
                   <div className="text-center mb-4">
                     <div className="text-2xl font-bold text-gray-900">800,000 GNF</div>
-                    <div className="text-blue-600 font-semibold">Économisez 10%</div>
+                    <div className="text-green-600 font-semibold">Économisez 10%</div>
                     <div className="text-gray-500 line-through text-sm">888,000 GNF</div>
                   </div>
 
                   <button
                     onClick={abonnementScolaire}
                     disabled={subscribing}
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full bg-green-600 hover:bg-green-700 text-white py-3 px-4 rounded-lg font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {subscribing ? 'Souscription...' : 'Renouveler'}
                   </button>
@@ -360,14 +360,14 @@ const SubscriptionPage: React.FC<SubscriptionPageProps> = ({ onBack }) => {
               </div>
 
               {/* Yearly Subscription */}
-              <div className="bg-white rounded-xl p-8 border-2 border-blue-200 shadow-sm relative">
-                <div className="absolute top-4 right-4 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-bold">
+              <div className="bg-white rounded-xl p-8 border-2 border-green-200 shadow-sm relative">
+                <div className="absolute top-4 right-4 bg-green-600 text-white px-3 py-1 rounded-full text-sm font-bold">
                   POPULAIRE
                 </div>
 
                 <div className="text-center mb-6">
-                  <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 border border-blue-200">
-                    <Shield className="h-8 w-8 text-blue-600" />
+                  <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 border border-green-200">
+                    <Shield className="h-8 w-8 text-green-600" />
                   </div>
                   <h3 className="text-2xl font-bold text-gray-900 mb-2">Abonnement Scolaire</h3>
                   <p className="text-gray-600">
@@ -377,14 +377,14 @@ const SubscriptionPage: React.FC<SubscriptionPageProps> = ({ onBack }) => {
 
                 <div className="text-center mb-6">
                   <div className="text-3xl font-bold text-gray-900">800,000 GNF</div>
-                  <div className="text-blue-600 font-semibold">Économisez 10%</div>
+                  <div className="text-green-600 font-semibold">Économisez 10%</div>
                   <div className="text-gray-500 line-through text-sm">888,000 GNF</div>
                 </div>
 
                 <button
                   onClick={abonnementScolaire}
                   disabled={subscribing}
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 px-6 rounded-lg font-semibold text-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full bg-green-600 hover:bg-green-700 text-white py-4 px-6 rounded-lg font-semibold text-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {subscribing ? 'Souscription...' : 'Souscrire'}
                 </button>
@@ -396,22 +396,22 @@ const SubscriptionPage: React.FC<SubscriptionPageProps> = ({ onBack }) => {
               <h3 className="text-xl font-bold text-gray-900 mb-6 text-center">Avantages inclus</h3>
               <div className="grid md:grid-cols-3 gap-6">
                 <div className="text-center">
-                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <BookOpen className="h-6 w-6 text-blue-600" />
+                  <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <BookOpen className="h-6 w-6 text-green-600" />
                   </div>
                   <h4 className="font-semibold text-gray-900 mb-2">Accès illimité</h4>
                   <p className="text-gray-600 text-sm">Tous les cours de votre niveau</p>
                 </div>
                 <div className="text-center">
-                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <CheckCircle className="h-6 w-6 text-blue-600" />
+                  <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <CheckCircle className="h-6 w-6 text-green-600" />
                   </div>
                   <h4 className="font-semibold text-gray-900 mb-2">Certificats</h4>
                   <p className="text-gray-600 text-sm">Certificats reconnus</p>
                 </div>
                 <div className="text-center">
-                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <User className="h-6 w-6 text-blue-600" />
+                  <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <User className="h-6 w-6 text-green-600" />
                   </div>
                   <h4 className="font-semibold text-gray-900 mb-2">Support</h4>
                   <p className="text-gray-600 text-sm">Assistance pédagogique</p>

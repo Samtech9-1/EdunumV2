@@ -12,7 +12,7 @@ import Connexion from './components/auth/Connexion';
 import MotDePasseOublie from './components/auth/MotDePasseOublie';
 import Contact from './components/Contact';
 import StudentDashboard from './components/dashboard/StudentDashboard';
-import StudentProfile from './components/dashboard/StudentProfile';
+//import StudentProfile from './components/dashboard/StudentProfile';
 import CourseDetailPage from './components/dashboard/CourseDetailPage';
 import SubscriptionPage from './components/dashboard/SubscriptionPage';
 
@@ -40,9 +40,9 @@ function App() {
     return <StudentDashboard />;
   }
 
-  if (currentPath === '/profile') {
-    return <StudentProfile onBack={() => window.location.href = '/dashboard'} setSidebarOpen={() => {}} />;
-  }
+  // if (currentPath === '/profile') {
+  //   return <StudentProfile onBack={() => window.location.href = '/dashboard'} setSidebarOpen={() => {}} />;
+  // }
 
   if (currentPath === '/subscription' || currentPath === '/abonnements') {
     return <SubscriptionPage onBack={() => window.location.href = '/dashboard'} />;

@@ -26,17 +26,18 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   headerActions 
 }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
   const handleLogout = async (): Promise<void> => {
     try {
       await UserService.logout();
+      localStorage.removeItem('user');
+      setUserLogin(null);
       window.location.href = '/';
     } catch (error) {
       console.error('Erreur lors de la déconnexion:', error);
       window.location.href = '/';
     }
   };
-
+ const [userLogin, setUserLogin] = useState(null);
   const menuItems: MenuItem[] = [
     { 
       icon: User, 
@@ -48,7 +49,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
       icon: BookOpen, 
       label: 'Mes cours', 
       active: currentView === 'dashboard' || currentView === 'course-detail', 
-      onClick: () => onViewChange('dashboard') 
+      onClick: () => { window.location.href = '/dashboard'; }
     },
     { 
       icon: CreditCard, 
@@ -63,7 +64,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
       onClick: handleLogout 
     }
   ];
-
+ 
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -72,7 +73,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
           <div className="flex items-center space-x-4">
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="lg:hidden text-gray-600 hover:text-blue-600 transition-colors"
+              className="lg:hidden text-gray-600 hover:text-green-600 transition-colors"
             >
               {sidebarOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
@@ -92,9 +93,9 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
 
           <div className="flex items-center space-x-4">
             {headerActions}
-            <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+            {/* <div className="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center">
               <User className="h-5 w-5 text-white" />
-            </div>
+            </div> */}
           </div>
         </div>
       </header>
@@ -112,13 +113,13 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
                   onClick={item.onClick || (() => {})}
                   className={`w-full flex items-center space-x-3 px-3 py-2 rounded-lg transition-all duration-200 text-sm group ${
                     item.active 
-                      ? 'bg-blue-50 text-blue-600 border-r-2 border-blue-600' 
+                      ? 'bg-green-50 text-green-600 border-r-2 border-green-600' 
                       : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
                   }`}
                 >
-                  <item.icon className={`h-5 w-5 ${item.active ? 'text-blue-600' : 'text-gray-400 group-hover:text-gray-600'}`} />
+                  <item.icon className={`h-5 w-5 ${item.active ? 'text-green-600' : 'text-gray-400 group-hover:text-gray-600'}`} />
                   <span className="font-medium">{item.label}</span>
-                  {item.active && <ChevronRight className="h-4 w-4 ml-auto text-blue-600" />}
+                  {item.active && <ChevronRight className="h-4 w-4 ml-auto text-green-600" />}
                 </button>
               ))}
             </nav>
