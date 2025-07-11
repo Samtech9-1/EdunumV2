@@ -19,7 +19,13 @@ import {
   Settings,
   Home,
   CreditCard,
-  Users
+  Users,
+  TrendingUp,
+  Calendar,
+  Star,
+  BarChart3,
+  Download,
+  Plus
 } from 'lucide-react';
 
 const StudentDashboard = () => {
@@ -29,7 +35,7 @@ const StudentDashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
-  const [currentView, setCurrentView] = useState('dashboard'); // 'dashboard' or 'profile'
+  const [currentView, setCurrentView] = useState('dashboard');
   const [selectedCourseId, setSelectedCourseId] = useState(null);
 
   // Vérification du token et redirection si nécessaire
@@ -42,7 +48,6 @@ const StudentDashboard = () => {
           return;
         }
 
-        // Récupérer les informations de l'utilisateur
         const user = await UserService.getCurrentUser();
         setCurrentUser(user);
       } catch (error) {
@@ -128,18 +133,21 @@ const StudentDashboard = () => {
   };
 
   const menuItems = [
+    { icon: Home, label: 'Dashboard', active: currentView === 'dashboard', onClick: () => setCurrentView('dashboard') },
+    { icon: BookOpen, label: 'Mes cours', active: false, onClick: () => setCurrentView('dashboard') },
     { icon: User, label: 'Mon profil', active: currentView === 'profile', onClick: () => setCurrentView('profile') },
-    { icon: BookOpen, label: 'Mes cours', active: currentView === 'dashboard', onClick: () => setCurrentView('dashboard') },
     { icon: CreditCard, label: 'Abonnements', active: currentView === 'subscription', onClick: () => setCurrentView('subscription') },
+    { icon: BarChart3, label: 'Performance', active: false, onClick: () => {} },
+    { icon: Settings, label: 'Paramètres', active: false, onClick: () => {} },
     { icon: LogOut, label: 'Déconnexion', active: false, onClick: handleLogout }
   ];
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-guinea-green border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-white text-lg">Chargement de vos cours...</p>
+          <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-gray-600 text-lg">Chargement de vos cours...</p>
         </div>
       </div>
     );
@@ -147,13 +155,13 @@ const StudentDashboard = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 flex items-center justify-center">
-        <div className="text-center text-white max-w-md mx-4">
-          <div className="bg-red-500/20 border border-red-500/30 rounded-lg p-6 mb-4">
-            <p className="text-red-300 mb-4">⚠️ {error}</p>
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center text-gray-800 max-w-md mx-4">
+          <div className="bg-red-50 border border-red-200 rounded-lg p-6 mb-4">
+            <p className="text-red-600 mb-4">⚠️ {error}</p>
             {error.includes("abonnement") && (
               <button
-                className="bg-guinea-green hover:bg-guinea-green-dark text-white px-6 py-2 rounded-lg transition-colors"
+                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors"
                 onClick={() => window.location.href = '/'}
               >
                 Se réabonner
@@ -198,36 +206,39 @@ const StudentDashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800">
+    <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-slate-800/50 backdrop-blur-sm border-b border-slate-700/50 sticky top-0 z-40">
-        <div className="flex items-center justify-between px-4 py-3">
+      <header className="bg-white border-b border-gray-200 sticky top-0 z-40">
+        <div className="flex items-center justify-between px-6 py-4">
           <div className="flex items-center space-x-4">
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="lg:hidden text-white hover:text-guinea-green transition-colors"
+              className="lg:hidden text-gray-600 hover:text-blue-600 transition-colors"
             >
               {sidebarOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
             
-            <div className="flex items-center space-x-3">
-              <img 
-                src={logoEduNum} 
-                alt="EDU NUM Logo" 
-                className="h-8 w-auto"
-              />            
-            </div>
+            <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors flex items-center space-x-2">
+              <Plus className="h-4 w-4" />
+              <span>Nouveau cours</span>
+            </button>
+          </div>
+
+          <div className="flex-1 max-w-md mx-8">
+            <h1 className="text-xl font-semibold text-gray-800">
+              Salut {currentUser?.prenom || 'Étudiant'} - 
+              <span className="text-gray-500 font-normal ml-2">voici ce qui se passe avec vos cours aujourd'hui</span>
+            </h1>
           </div>
 
           <div className="flex items-center space-x-4">
-            <button className="text-white hover:text-guinea-green transition-colors">
-              <Mail className="h-5 w-5" />
-            </button>
-            <button className="text-white hover:text-guinea-green transition-colors">
+            <button className="text-gray-600 hover:text-blue-600 transition-colors">
               <Bell className="h-5 w-5" />
             </button>
-            <span className="text-white text-sm">Contactez-nous</span>
-            <div className="w-8 h-8 bg-guinea-green rounded-full flex items-center justify-center">
+            <button className="text-gray-600 hover:text-blue-600 transition-colors">
+              <Settings className="h-5 w-5" />
+            </button>
+            <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
               <User className="h-5 w-5 text-white" />
             </div>
           </div>
@@ -238,17 +249,25 @@ const StudentDashboard = () => {
         {/* Sidebar */}
         <aside className={`${
           sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-        } lg:translate-x-0 fixed lg:static inset-y-0 left-0 z-30 w-64 bg-slate-800/90 backdrop-blur-sm border-r border-slate-700/50 transition-transform duration-300 ease-in-out`}>
+        } lg:translate-x-0 fixed lg:static inset-y-0 left-0 z-30 w-64 bg-white border-r border-gray-200 transition-transform duration-300 ease-in-out`}>
           <div className="p-6">
-            <nav className="space-y-2">
+            <div className="flex items-center space-x-3 mb-8">
+              <img 
+                src={logoEduNum} 
+                alt="EDU NUM Logo" 
+                className="h-8 w-auto"
+              />            
+            </div>
+            
+            <nav className="space-y-1">
               {menuItems.map((item, index) => (
                 <button
                   key={index}
                   onClick={item.onClick || (() => {})}
-                  className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
+                  className={`w-full flex items-center space-x-3 px-3 py-2 rounded-lg transition-all duration-200 text-sm ${
                     item.active 
-                      ? 'bg-guinea-green/20 text-guinea-green border border-guinea-green/30' 
-                      : 'text-slate-300 hover:text-white hover:bg-slate-700/50'
+                      ? 'bg-blue-50 text-blue-600 border-r-2 border-blue-600' 
+                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
                   }`}
                 >
                   <item.icon className="h-5 w-5" />
@@ -257,90 +276,228 @@ const StudentDashboard = () => {
                 </button>
               ))}
             </nav>
+
+            {/* Support Section */}
+            <div className="mt-8 pt-6 border-t border-gray-200">
+              <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Support</h3>
+              <div className="space-y-1">
+                <button className="w-full flex items-center space-x-3 px-3 py-2 rounded-lg text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors">
+                  <Mail className="h-5 w-5" />
+                  <span>Contact</span>
+                  <span className="ml-auto bg-gray-200 text-gray-600 text-xs px-2 py-1 rounded-full">15</span>
+                </button>
+              </div>
+            </div>
           </div>
         </aside>
 
         {/* Main Content */}
-        <main className="flex-1 p-6 lg:p-8">
+        <main className="flex-1 p-6">
           <div className="max-w-7xl mx-auto">
-            <div className="mb-8">
-              <h1 className="text-3xl font-bold text-white mb-2">Mes Cours</h1>
-              <p className="text-slate-300">Accédez à vos cours et continuez votre apprentissage</p>
+            {/* Stats Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+              <div className="bg-white rounded-lg p-6 border border-gray-200">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider">Cours du jour</h3>
+                  <TrendingUp className="h-5 w-5 text-green-500" />
+                </div>
+                <div className="flex items-baseline">
+                  <p className="text-2xl font-semibold text-gray-900">3</p>
+                  <p className="ml-2 text-sm font-medium text-green-600">+36%</p>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg p-6 border border-gray-200">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider">Total cours</h3>
+                  <BookOpen className="h-5 w-5 text-blue-500" />
+                </div>
+                <div className="flex items-baseline">
+                  <p className="text-2xl font-semibold text-gray-900">{courses.length}</p>
+                  <p className="ml-2 text-sm font-medium text-red-600">-14%</p>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg p-6 border border-gray-200">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider">Heures étudiées</h3>
+                  <Clock className="h-5 w-5 text-purple-500" />
+                </div>
+                <div className="flex items-baseline">
+                  <p className="text-2xl font-semibold text-gray-900">24.5</p>
+                  <p className="ml-2 text-sm font-medium text-green-600">+36%</p>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg p-6 border border-gray-200">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider">Progression</h3>
+                  <Award className="h-5 w-5 text-yellow-500" />
+                </div>
+                <div className="flex items-baseline">
+                  <p className="text-2xl font-semibold text-gray-900">78%</p>
+                  <p className="ml-2 text-sm font-medium text-green-600">+36%</p>
+                </div>
+              </div>
             </div>
 
-            {/* Courses Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {courses.map((course) => (
-                <div
-                  key={course.id}
-                  onClick={() => handleSelectCourse(course)}
-                  className="bg-slate-800/50 backdrop-blur-sm rounded-xl overflow-hidden border border-slate-700/50 hover:border-guinea-green/50 transition-all duration-300 cursor-pointer group hover:transform hover:scale-105"
-                >
-                  <div className="relative">
-                    <img 
-                      src={course.thumbnail} 
-                      alt={course.title}
-                      className="w-full h-48 object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                    
-                    {/* Subject Badge */}
-                    <div className="absolute top-3 left-3">
-                      <div className="bg-red-600 text-white px-3 py-1 rounded-lg text-sm font-bold flex items-center justify-center min-w-[60px] min-h-[60px]">
-                        <span className="text-2xl font-bold">A</span>
+            {/* Main Content Grid */}
+            <div className="grid lg:grid-cols-3 gap-8">
+              {/* Courses Section */}
+              <div className="lg:col-span-2">
+                <div className="bg-white rounded-lg border border-gray-200">
+                  <div className="p-6 border-b border-gray-200">
+                    <div className="flex items-center justify-between">
+                      <h2 className="text-lg font-semibold text-gray-900">Mes Cours</h2>
+                      <div className="flex items-center space-x-2">
+                        <button className="px-3 py-1 text-sm bg-blue-600 text-white rounded-lg">12 Mois</button>
+                        <button className="px-3 py-1 text-sm text-gray-600 hover:bg-gray-100 rounded-lg">6 Mois</button>
+                        <button className="px-3 py-1 text-sm text-gray-600 hover:bg-gray-100 rounded-lg">30 Jours</button>
+                        <button className="px-3 py-1 text-sm text-gray-600 hover:bg-gray-100 rounded-lg">7 Jours</button>
                       </div>
-                    </div>
-
-                    {/* Play Button */}
-                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <div className="bg-white/20 backdrop-blur-sm p-4 rounded-full border border-white/30">
-                        <Play className="h-8 w-8 text-white" />
-                      </div>
-                    </div>
-
-                    {/* Course Info Overlay */}
-                    <div className="absolute bottom-3 left-3 right-3">
-                      <h3 className="text-white font-bold text-lg mb-1">{course.title}</h3>
-                      <p className="text-white/80 text-sm">{course.subject}</p>
                     </div>
                   </div>
 
-                  <div className="p-4">
-                    <div className="flex items-center justify-between text-sm text-slate-400 mb-3">
-                      <div className="flex items-center space-x-1">
-                        <Clock className="h-4 w-4" />
-                        <span>{course.duration}</span>
-                      </div>
-                      <div className="flex items-center space-x-1">
-                        <Users className="h-4 w-4" />
-                        <span>{course.level}</span>
-                      </div>
-                    </div>
+                  <div className="p-6">
+                    {courses.length > 0 ? (
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {courses.map((course) => (
+                          <div
+                            key={course.id}
+                            onClick={() => handleSelectCourse(course)}
+                            className="bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition-colors cursor-pointer group border border-gray-200"
+                          >
+                            <div className="relative mb-4">
+                              <img 
+                                src={course.thumbnail} 
+                                alt={course.title}
+                                className="w-full h-32 object-cover rounded-lg"
+                              />
+                              <div className="absolute inset-0 bg-black/20 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <Play className="h-8 w-8 text-white" />
+                              </div>
+                            </div>
+                            
+                            <h3 className="font-semibold text-gray-900 mb-2">{course.title}</h3>
+                            <p className="text-sm text-gray-600 mb-3">{course.subject}</p>
+                            
+                            <div className="flex items-center justify-between text-sm text-gray-500">
+                              <div className="flex items-center space-x-1">
+                                <Clock className="h-4 w-4" />
+                                <span>{course.duration}</span>
+                              </div>
+                              <div className="flex items-center space-x-1">
+                                <Users className="h-4 w-4" />
+                                <span>{course.level}</span>
+                              </div>
+                            </div>
 
-                    {/* Progress Bar */}
-                    <div className="mb-3">
-                      <div className="w-full bg-slate-700 rounded-full h-2">
-                        <div className="bg-guinea-green h-2 rounded-full" style={{ width: '0%' }}></div>
+                            <div className="mt-3">
+                              <div className="w-full bg-gray-200 rounded-full h-2">
+                                <div className="bg-blue-600 h-2 rounded-full" style={{ width: '0%' }}></div>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
                       </div>
-                    </div>
-
-                    <p className="text-slate-300 text-sm leading-relaxed">
-                      {course.description || `Cours de ${course.subject} de la Terminale Sciences`}
-                    </p>
-                    
-                    <p className="text-slate-400 text-sm mt-2">{course.subject}</p>
+                    ) : (
+                      <div className="text-center py-12">
+                        <BookOpen className="h-16 w-16 text-gray-400 mx-auto mb-4" />
+                        <h3 className="text-xl font-semibold text-gray-900 mb-2">Aucun cours disponible</h3>
+                        <p className="text-gray-600">Vous n'avez pas encore accès à des cours. Contactez votre administrateur.</p>
+                      </div>
+                    )}
                   </div>
                 </div>
-              ))}
-            </div>
-
-            {courses.length === 0 && (
-              <div className="text-center py-12">
-                <BookOpen className="h-16 w-16 text-slate-600 mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-white mb-2">Aucun cours disponible</h3>
-                <p className="text-slate-400">Vous n'avez pas encore accès à des cours. Contactez votre administrateur.</p>
               </div>
-            )}
+
+              {/* Right Sidebar */}
+              <div className="space-y-6">
+                {/* Progress Overview */}
+                <div className="bg-white rounded-lg border border-gray-200 p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-lg font-semibold text-gray-900">Progression</h3>
+                    <select className="text-sm border border-gray-300 rounded-lg px-3 py-1">
+                      <option>7 derniers jours</option>
+                      <option>30 derniers jours</option>
+                      <option>3 derniers mois</option>
+                    </select>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    <div>
+                      <div className="flex justify-between text-sm mb-1">
+                        <span className="text-gray-600">Mathématiques</span>
+                        <span className="font-medium">85%</span>
+                      </div>
+                      <div className="w-full bg-gray-200 rounded-full h-2">
+                        <div className="bg-blue-600 h-2 rounded-full" style={{ width: '85%' }}></div>
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <div className="flex justify-between text-sm mb-1">
+                        <span className="text-gray-600">Physique</span>
+                        <span className="font-medium">72%</span>
+                      </div>
+                      <div className="w-full bg-gray-200 rounded-full h-2">
+                        <div className="bg-green-500 h-2 rounded-full" style={{ width: '72%' }}></div>
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <div className="flex justify-between text-sm mb-1">
+                        <span className="text-gray-600">Chimie</span>
+                        <span className="font-medium">58%</span>
+                      </div>
+                      <div className="w-full bg-gray-200 rounded-full h-2">
+                        <div className="bg-yellow-500 h-2 rounded-full" style={{ width: '58%' }}></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Recent Activity */}
+                <div className="bg-white rounded-lg border border-gray-200 p-6">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Activité récente</h3>
+                  
+                  <div className="space-y-4">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-sm font-medium text-gray-900">Cours terminé</p>
+                        <p className="text-xs text-gray-500">Mathématiques - Chapitre 3</p>
+                      </div>
+                      <span className="text-xs text-gray-400">2h</span>
+                    </div>
+                    
+                    <div className="flex items-center space-x-3">
+                      <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                        <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-sm font-medium text-gray-900">Nouveau cours</p>
+                        <p className="text-xs text-gray-500">Physique - Introduction</p>
+                      </div>
+                      <span className="text-xs text-gray-400">1j</span>
+                    </div>
+                    
+                    <div className="flex items-center space-x-3">
+                      <div className="w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center">
+                        <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-sm font-medium text-gray-900">Exercice complété</p>
+                        <p className="text-xs text-gray-500">Chimie - TP n°2</p>
+                      </div>
+                      <span className="text-xs text-gray-400">3j</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </main>
       </div>
@@ -348,7 +505,7 @@ const StudentDashboard = () => {
       {/* Mobile Sidebar Overlay */}
       {sidebarOpen && (
         <div 
-          className="lg:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-20"
+          className="lg:hidden fixed inset-0 bg-black/50 z-20"
           onClick={() => setSidebarOpen(false)}
         />
       )}
