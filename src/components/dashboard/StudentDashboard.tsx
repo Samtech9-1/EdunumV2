@@ -146,7 +146,7 @@ const StudentDashboard = () => {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-guinea-green border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-gray-600 text-lg">Chargement de vos cours...</p>
         </div>
       </div>
@@ -161,7 +161,7 @@ const StudentDashboard = () => {
             <p className="text-red-600 mb-4">⚠️ {error}</p>
             {error.includes("abonnement") && (
               <button
-                className="bg-guinea-green hover:bg-guinea-green-dark text-white px-6 py-2 rounded-lg transition-colors"
+                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors"
                 onClick={() => window.location.href = '/'}
               >
                 Se réabonner
@@ -207,44 +207,38 @@ const StudentDashboard = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header simplifié */}
+      {/* Header */}
       <header className="bg-white border-b border-gray-200 sticky top-0 z-40">
         <div className="flex items-center justify-between px-6 py-4">
-          {/* Logo EDU NUM */}
           <div className="flex items-center space-x-4">
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="lg:hidden text-gray-600 hover:text-guinea-green transition-colors"
+              className="lg:hidden text-gray-600 hover:text-blue-600 transition-colors"
             >
               {sidebarOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
             
-            <div className="flex items-center space-x-3">
-              <img 
-                src={logoEduNum} 
-                alt="EDU NUM Logo" 
-                className="h-8 w-auto"
-              />            
-            </div>
+            <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors flex items-center space-x-2">
+              <Plus className="h-4 w-4" />
+              <span>Nouveau cours</span>
+            </button>
           </div>
 
-          {/* Message de bienvenue centré */}
-          <div className="flex-1 text-center">
+          <div className="flex-1 max-w-md mx-8">
             <h1 className="text-xl font-semibold text-gray-800">
               Salut {currentUser?.prenom || 'Étudiant'} - 
               <span className="text-gray-500 font-normal ml-2">voici ce qui se passe avec vos cours aujourd'hui</span>
             </h1>
           </div>
 
-          {/* 3 boutons d'actions */}
           <div className="flex items-center space-x-4">
-            <button className="text-gray-600 hover:text-guinea-green transition-colors">
+            <button className="text-gray-600 hover:text-blue-600 transition-colors">
               <Bell className="h-5 w-5" />
             </button>
-            <button className="text-gray-600 hover:text-guinea-green transition-colors">
+            <button className="text-gray-600 hover:text-blue-600 transition-colors">
               <Settings className="h-5 w-5" />
             </button>
-            <div className="w-8 h-8 bg-guinea-green rounded-full flex items-center justify-center">
+            <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
               <User className="h-5 w-5 text-white" />
             </div>
           </div>
@@ -252,11 +246,19 @@ const StudentDashboard = () => {
       </header>
 
       <div className="flex">
-        {/* Sidebar unifiée */}
+        {/* Sidebar */}
         <aside className={`${
           sidebarOpen ? 'translate-x-0' : '-translate-x-full'
         } lg:translate-x-0 fixed lg:static inset-y-0 left-0 z-30 w-64 bg-white border-r border-gray-200 transition-transform duration-300 ease-in-out`}>
           <div className="p-6">
+            <div className="flex items-center space-x-3 mb-8">
+              <img 
+                src={logoEduNum} 
+                alt="EDU NUM Logo" 
+                className="h-8 w-auto"
+              />            
+            </div>
+            
             <nav className="space-y-1">
               {menuItems.map((item, index) => (
                 <button
@@ -264,7 +266,7 @@ const StudentDashboard = () => {
                   onClick={item.onClick || (() => {})}
                   className={`w-full flex items-center space-x-3 px-3 py-2 rounded-lg transition-all duration-200 text-sm ${
                     item.active 
-                      ? 'bg-guinea-green/10 text-guinea-green border-r-2 border-guinea-green' 
+                      ? 'bg-blue-50 text-blue-600 border-r-2 border-blue-600' 
                       : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
                   }`}
                 >
@@ -292,14 +294,6 @@ const StudentDashboard = () => {
         {/* Main Content */}
         <main className="flex-1 p-6">
           <div className="max-w-7xl mx-auto">
-            {/* Bouton Nouveau cours */}
-            <div className="mb-6">
-              <button className="bg-guinea-green hover:bg-guinea-green-dark text-white px-4 py-2 rounded-lg transition-colors flex items-center space-x-2">
-                <Plus className="h-4 w-4" />
-                <span>Nouveau cours</span>
-              </button>
-            </div>
-
             {/* Stats Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
               <div className="bg-white rounded-lg p-6 border border-gray-200">
@@ -316,7 +310,7 @@ const StudentDashboard = () => {
               <div className="bg-white rounded-lg p-6 border border-gray-200">
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider">Total cours</h3>
-                  <BookOpen className="h-5 w-5 text-guinea-green" />
+                  <BookOpen className="h-5 w-5 text-blue-500" />
                 </div>
                 <div className="flex items-baseline">
                   <p className="text-2xl font-semibold text-gray-900">{courses.length}</p>
@@ -356,7 +350,7 @@ const StudentDashboard = () => {
                     <div className="flex items-center justify-between">
                       <h2 className="text-lg font-semibold text-gray-900">Mes Cours</h2>
                       <div className="flex items-center space-x-2">
-                        <button className="px-3 py-1 text-sm bg-guinea-green text-white rounded-lg">12 Mois</button>
+                        <button className="px-3 py-1 text-sm bg-blue-600 text-white rounded-lg">12 Mois</button>
                         <button className="px-3 py-1 text-sm text-gray-600 hover:bg-gray-100 rounded-lg">6 Mois</button>
                         <button className="px-3 py-1 text-sm text-gray-600 hover:bg-gray-100 rounded-lg">30 Jours</button>
                         <button className="px-3 py-1 text-sm text-gray-600 hover:bg-gray-100 rounded-lg">7 Jours</button>
@@ -400,7 +394,7 @@ const StudentDashboard = () => {
 
                             <div className="mt-3">
                               <div className="w-full bg-gray-200 rounded-full h-2">
-                                <div className="bg-guinea-green h-2 rounded-full" style={{ width: '0%' }}></div>
+                                <div className="bg-blue-600 h-2 rounded-full" style={{ width: '0%' }}></div>
                               </div>
                             </div>
                           </div>
@@ -437,7 +431,7 @@ const StudentDashboard = () => {
                         <span className="font-medium">85%</span>
                       </div>
                       <div className="w-full bg-gray-200 rounded-full h-2">
-                        <div className="bg-guinea-green h-2 rounded-full" style={{ width: '85%' }}></div>
+                        <div className="bg-blue-600 h-2 rounded-full" style={{ width: '85%' }}></div>
                       </div>
                     </div>
                     
@@ -480,8 +474,8 @@ const StudentDashboard = () => {
                     </div>
                     
                     <div className="flex items-center space-x-3">
-                      <div className="w-8 h-8 bg-guinea-green/20 rounded-full flex items-center justify-center">
-                        <div className="w-2 h-2 bg-guinea-green rounded-full"></div>
+                      <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                        <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
                       </div>
                       <div className="flex-1">
                         <p className="text-sm font-medium text-gray-900">Nouveau cours</p>
