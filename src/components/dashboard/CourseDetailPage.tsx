@@ -163,19 +163,6 @@ const ErrorPageWithMenu: React.FC<{ error: string; onBack: () => void; onLogout:
               </div>
             </div>
           </div>
-        </main>
-      </div>
-
-      {/* Mobile Sidebar Overlay */}
-      {sidebarOpen && (
-        <div 
-          className="lg:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-20"
-          onClick={() => setSidebarOpen(false)}
-        />
-      )}
-    </div>
-  );
-};
 
 const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ courseId, onBack }) => {
   const [course, setCourse] = useState<CourseModule | null>(null);

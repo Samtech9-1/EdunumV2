@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { UserService } from '../../services/UserService';
-import logoEduNum from '../common/Images/eduNum.png';
 import { 
   User, 
   Edit3, 
@@ -13,15 +12,7 @@ import {
   Users, 
   Calendar,
   CheckCircle,
-  AlertCircle,
-  ArrowLeft,
-  Menu,
-  LogOut,
-  BookOpen,
-  CreditCard,
-  ChevronRight,
-  Bell,
-  Settings
+  AlertCircle
 } from 'lucide-react';
 import { VILLEURL, REGIONURL, NIVEAUURL } from '../../utils/urls';
 import CustomSelect from '../common/CustomSelect';
@@ -43,13 +34,6 @@ interface Profile {
 
 interface FormErrors {
   [key: string]: string;
-}
-
-interface MenuItem {
-  icon: React.ComponentType<{ className?: string }>;
-  label: string;
-  active: boolean;
-  onClick?: () => void;
 }
 
 interface StudentProfileProps {
@@ -79,7 +63,6 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ onBack, setSidebarOpen 
   const [editMode, setEditMode] = useState<boolean>(false);
   const [saveSuccess, setSaveSuccess] = useState<boolean>(false);
   const [formErrors, setFormErrors] = useState<FormErrors>({});
-  const [sidebarOpen, setSidebarOpenLocal] = useState<boolean>(false);
   const [currentUser, setCurrentUser] = useState<any>(null);
 
   const handleError = useCallback((error: any) => {
@@ -278,29 +261,12 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ onBack, setSidebarOpen 
     }
   };
 
-  const handleLogout = async (): Promise<void> => {
-    try {
-      await UserService.logout();
-      window.location.href = '/';
-    } catch (error) {
-      console.error('Erreur lors de la déconnexion:', error);
-      window.location.href = '/';
-    }
-  };
-
-  const menuItems: MenuItem[] = [
-    { icon: User, label: 'Mon profil', active: true, onClick: () => {} },
-    { icon: BookOpen, label: 'Mes cours', active: false, onClick: onBack },
-    { icon: CreditCard, label: 'Abonnements', active: false, onClick: () => window.location.href = '/subscription' },
-    { icon: LogOut, label: 'Déconnexion', active: false, onClick: handleLogout }
-  ];
-
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-guinea-green border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-white text-lg">Chargement du profil...</p>
+          <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-gray-600 text-lg">Chargement du profil...</p>
         </div>
       </div>
     );
@@ -308,7 +274,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ onBack, setSidebarOpen 
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center text-white max-w-md mx-4">
           <div className="bg-red-500/20 border border-red-500/30 rounded-lg p-6">
             <AlertCircle className="h-12 w-12 text-red-400 mx-auto mb-4" />
@@ -320,92 +286,21 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ onBack, setSidebarOpen 
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800">
-      {/* Header */}
-      <header className="bg-slate-800/50 backdrop-blur-sm border-b border-slate-700/50 sticky top-0 z-40">
-        <div className="flex items-center justify-between px-4 py-3">
-          <div className="flex items-center space-x-4">
-            <button
-              onClick={() => setSidebarOpenLocal(!sidebarOpen)}
-              className="lg:hidden text-white hover:text-guinea-green transition-colors"
-            >
-              {sidebarOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </button>
-            
-            <div className="flex items-center space-x-3">
-              <img 
-                src={logoEduNum}
-                alt="EDU NUM Logo" 
-                className="h-8 w-auto"
-              />
-            </div>
-          </div>
-
-          <div className="flex items-center space-x-4">
-   <button
-                onClick={onBack}
-                className="flex items-center space-x-2 bg-guinea-green hover:bg-guinea-green-dark text-white px-4 py-2 rounded-lg transition-all duration-300 transform hover:scale-105"
-              >
-                <ArrowLeft className="h-5 w-5" />
-                <span>Retour à mes cours</span>
-              </button>            
-
-            <button className="text-white hover:text-guinea-green transition-colors">
-              <Mail className="h-5 w-5" />
-            </button>
-            <button className="text-white hover:text-guinea-green transition-colors">
-              <Bell className="h-5 w-5" />
-            </button>
-            <span className="text-white text-sm">Mon Profil</span>
-            <div className="w-8 h-8 bg-guinea-green rounded-full flex items-center justify-center">
-              <User className="h-5 w-5 text-white" />
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <div className="flex">
-        {/* Sidebar */}
-        <aside className={`${
-          sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-        } lg:translate-x-0 fixed lg:static inset-y-0 left-0 z-30 w-64 bg-slate-800/90 backdrop-blur-sm border-r border-slate-700/50 transition-transform duration-300 ease-in-out`}>
-          <div className="p-6">
-            <nav className="space-y-2">
-              {menuItems.map((item, index) => (
-                <button
-                  key={index}
-                  onClick={item.onClick || (() => {})}
-                  className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 ${
-                    item.active 
-                      ? 'bg-guinea-green/20 text-guinea-green border border-guinea-green/30' 
-                      : 'text-slate-300 hover:text-white hover:bg-slate-700/50'
-                  }`}
-                >
-                  <item.icon className="h-5 w-5" />
-                  <span className="font-medium">{item.label}</span>
-                  {item.active && <ChevronRight className="h-4 w-4 ml-auto" />}
-                </button>
-              ))}
-            </nav>
-          </div>
-        </aside>
-
-        {/* Main Content */}
-        <main className="flex-1 p-6 lg:p-8">
+    <div className="p-6">
           <div className="max-w-7xl mx-auto">
             {/* Profile Header */}
-            <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-8 border border-slate-700/50 mb-8">
+            <div className="bg-white rounded-xl p-8 border border-gray-200 mb-8">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between">
                 <div className="flex items-center space-x-6 mb-6 md:mb-0">
-                  <div className="w-20 h-20 bg-gradient-to-br from-guinea-green to-guinea-green-light rounded-full flex items-center justify-center text-white text-2xl font-bold">
+                  <div className="w-20 h-20 bg-gradient-to-br from-blue-600 to-blue-500 rounded-full flex items-center justify-center text-white text-2xl font-bold">
                     {profile.prenom.charAt(0)}{profile.nom.charAt(0)}
                   </div>
                   <div>
-                    <h1 className="text-3xl font-bold text-white mb-2">
+                    <h1 className="text-3xl font-bold text-gray-900 mb-2">
                       {profile.prenom} {profile.nom}
                     </h1>
-                    <p className="text-slate-300 mb-1">{profile.email}</p>
-                    <div className="inline-flex items-center px-3 py-1 bg-guinea-green/20 text-guinea-green rounded-full text-sm font-medium border border-guinea-green/30">
+                    <p className="text-gray-600 mb-1">{profile.email}</p>
+                    <div className="inline-flex items-center px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-sm font-medium border border-blue-200">
                       <School className="h-4 w-4 mr-2" />
                       {profile.grade || 'Niveau non spécifié'}
                     </div>
@@ -416,7 +311,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ onBack, setSidebarOpen 
                   {!editMode ? (
                     <button 
                       onClick={handleEdit}
-                      className="flex items-center space-x-2 bg-guinea-green hover:bg-guinea-green-dark text-white px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105"
+                      className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105"
                     >
                       <Edit3 className="h-5 w-5" />
                       <span>Modifier le profil</span>
@@ -428,8 +323,8 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ onBack, setSidebarOpen 
                         disabled={loading}
                         className={`flex items-center space-x-2 px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 ${
                           saveSuccess 
-                            ? 'bg-green-600 text-white' 
-                            : 'bg-guinea-green hover:bg-guinea-green-dark text-white'
+                            ? 'bg-green-500 text-white' 
+                            : 'bg-blue-600 hover:bg-blue-700 text-white'
                         } ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                       >
                         {saveSuccess ? (
@@ -446,7 +341,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ onBack, setSidebarOpen 
                       </button>
                       <button 
                         onClick={handleCancel}
-                        className="flex items-center space-x-2 bg-slate-600 hover:bg-slate-500 text-white px-6 py-3 rounded-lg transition-all duration-300"
+                        className="flex items-center space-x-2 bg-gray-600 hover:bg-gray-500 text-white px-6 py-3 rounded-lg transition-all duration-300"
                       >
                         <X className="h-5 w-5" />
                         <span>Annuler</span>
@@ -460,9 +355,9 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ onBack, setSidebarOpen 
             {/* Profile Content */}
             <div className="grid lg:grid-cols-2 gap-8">
               {/* Personal Information */}
-              <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 border border-slate-700/50">
-                <h2 className="text-xl font-bold text-white mb-6 flex items-center">
-                  <User className="h-6 w-6 mr-3 text-guinea-green" />
+              <div className="bg-white rounded-xl p-6 border border-gray-200">
+                <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
+                  <User className="h-6 w-6 mr-3 text-blue-600" />
                   Informations personnelles
                 </h2>
                 
@@ -470,7 +365,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ onBack, setSidebarOpen 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-slate-300 mb-2">
-                        Nom <span className="text-guinea-red">*</span>
+                        Nom <span className="text-red-500">*</span>
                       </label>
                       {editMode ? (
                         <div>
@@ -478,7 +373,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ onBack, setSidebarOpen 
                             type="text"
                             value={profile.nom}
                             onChange={(e) => handleInputChange('nom', e.target.value)}
-                            className={`w-full px-4 py-3 bg-slate-700/50 border rounded-lg text-white placeholder-slate-400 focus:ring-2 focus:ring-guinea-green focus:border-guinea-green transition-all ${
+                            className={`w-full px-4 py-3 bg-white border rounded-lg text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${
                               formErrors.nom ? 'border-red-500' : 'border-slate-600'
                             }`}
                             placeholder="Votre nom"
@@ -488,13 +383,13 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ onBack, setSidebarOpen 
                           )}
                         </div>
                       ) : (
-                        <p className="text-white bg-slate-700/30 px-4 py-3 rounded-lg">{profile.nom || 'Non spécifié'}</p>
+                        <p className="text-gray-900 bg-gray-50 px-4 py-3 rounded-lg">{profile.nom || 'Non spécifié'}</p>
                       )}
                     </div>
                     
                     <div>
                       <label className="block text-sm font-medium text-slate-300 mb-2">
-                        Prénom <span className="text-guinea-red">*</span>
+                        Prénom <span className="text-red-500">*</span>
                       </label>
                       {editMode ? (
                         <div>
@@ -502,7 +397,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ onBack, setSidebarOpen 
                             type="text"
                             value={profile.prenom}
                             onChange={(e) => handleInputChange('prenom', e.target.value)}
-                            className={`w-full px-4 py-3 bg-slate-700/50 border rounded-lg text-white placeholder-slate-400 focus:ring-2 focus:ring-guinea-green focus:border-guinea-green transition-all ${
+                            className={`w-full px-4 py-3 bg-white border rounded-lg text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${
                               formErrors.prenom ? 'border-red-500' : 'border-slate-600'
                             }`}
                             placeholder="Votre prénom"
@@ -512,15 +407,15 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ onBack, setSidebarOpen 
                           )}
                         </div>
                       ) : (
-                        <p className="text-white bg-slate-700/30 px-4 py-3 rounded-lg">{profile.prenom || 'Non spécifié'}</p>
+                        <p className="text-gray-900 bg-gray-50 px-4 py-3 rounded-lg">{profile.prenom || 'Non spécifié'}</p>
                       )}
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-slate-300 mb-2 flex items-center">
+                    <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center">
                       <Mail className="h-4 w-4 mr-2" />
-                      Email <span className="text-guinea-red">*</span>
+                      Email <span className="text-red-500">*</span>
                     </label>
                     {editMode ? (
                       <div>
@@ -528,7 +423,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ onBack, setSidebarOpen 
                           type="email"
                           value={profile.email}
                           onChange={(e) => handleInputChange('email', e.target.value)}
-                          className={`w-full px-4 py-3 bg-slate-700/50 border rounded-lg text-white placeholder-slate-400 focus:ring-2 focus:ring-guinea-green focus:border-guinea-green transition-all ${
+                          className={`w-full px-4 py-3 bg-white border rounded-lg text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${
                             formErrors.email ? 'border-red-500' : 'border-slate-600'
                           }`}
                           placeholder="votre@email.com"
@@ -538,14 +433,14 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ onBack, setSidebarOpen 
                         )}
                       </div>
                     ) : (
-                      <p className="text-white bg-slate-700/30 px-4 py-3 rounded-lg">{profile.email || 'Non spécifié'}</p>
+                      <p className="text-gray-900 bg-gray-50 px-4 py-3 rounded-lg">{profile.email || 'Non spécifié'}</p>
                     )}
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-slate-300 mb-2 flex items-center">
+                    <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center">
                       <Phone className="h-4 w-4 mr-2" />
-                      Téléphone <span className="text-guinea-red">*</span>
+                      Téléphone <span className="text-red-500">*</span>
                     </label>
                     {editMode ? (
                       <div>
@@ -553,7 +448,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ onBack, setSidebarOpen 
                           type="tel"
                           value={profile.telephone}
                           onChange={(e) => handleInputChange('telephone', e.target.value)}
-                          className={`w-full px-4 py-3 bg-slate-700/50 border rounded-lg text-white placeholder-slate-400 focus:ring-2 focus:ring-guinea-green focus:border-guinea-green transition-all ${
+                          className={`w-full px-4 py-3 bg-white border rounded-lg text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${
                             formErrors.telephone ? 'border-red-500' : 'border-slate-600'
                           }`}
                           placeholder="6XXXXXXXX"
@@ -563,21 +458,21 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ onBack, setSidebarOpen 
                         )}
                       </div>
                     ) : (
-                      <p className="text-white bg-slate-700/30 px-4 py-3 rounded-lg">{profile.telephone || 'Non spécifié'}</p>
+                      <p className="text-gray-900 bg-gray-50 px-4 py-3 rounded-lg">{profile.telephone || 'Non spécifié'}</p>
                     )}
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-slate-300 mb-2 flex items-center">
+                    <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center">
                       <Users className="h-4 w-4 mr-2" />
-                      Genre <span className="text-guinea-red">*</span>
+                      Genre <span className="text-red-500">*</span>
                     </label>
                     {editMode ? (
                       <div>
                         <select
                           value={profile.genre}
                           onChange={(e) => handleInputChange('genre', e.target.value)}
-                          className={`w-full px-4 py-3 bg-slate-700/50 border rounded-lg text-white focus:ring-2 focus:ring-guinea-green focus:border-guinea-green transition-all ${
+                          className={`w-full px-4 py-3 bg-white border rounded-lg text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${
                             formErrors.genre ? 'border-red-500' : 'border-slate-600'
                           }`}
                         >
@@ -590,7 +485,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ onBack, setSidebarOpen 
                         )}
                       </div>
                     ) : (
-                      <p className="text-white bg-slate-700/30 px-4 py-3 rounded-lg">{profile.genre || 'Non spécifié'}</p>
+                      <p className="text-gray-900 bg-gray-50 px-4 py-3 rounded-lg">{profile.genre || 'Non spécifié'}</p>
                     )}
                   </div>
                 </div>
@@ -599,16 +494,16 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ onBack, setSidebarOpen 
               {/* Academic & Location Information */}
               <div className="space-y-8">
                 {/* Academic Information */}
-                <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 border border-slate-700/50">
-                  <h2 className="text-xl font-bold text-white mb-6 flex items-center">
-                    <School className="h-6 w-6 mr-3 text-guinea-green" />
+                <div className="bg-white rounded-xl p-6 border border-gray-200">
+                  <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
+                    <School className="h-6 w-6 mr-3 text-blue-600" />
                     Informations académiques
                   </h2>
                   
                   <div className="space-y-6">
                     <div>
                       <label className="block text-sm font-medium text-slate-300 mb-2">
-                        Niveau <span className="text-guinea-red">*</span>
+                        Niveau <span className="text-red-500">*</span>
                       </label>
                       {editMode ? (
                         <div>
@@ -618,20 +513,20 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ onBack, setSidebarOpen 
                             isClearable
                             onChange={(selectedOption) => handleSelectChange('gradeId', selectedOption)}
                             value={profile.grade ? { value: profile.gradeId || profile.grade, label: profile.grade } : null}
-                            className="bg-slate-700/50 border-slate-600 text-white"
+                            className="bg-white border-gray-300 text-gray-900"
                           />
                           {formErrors.gradeId && (
                             <p className="text-red-400 text-sm mt-1">{formErrors.gradeId}</p>
                           )}
                         </div>
                       ) : (
-                        <p className="text-white bg-slate-700/30 px-4 py-3 rounded-lg">{profile.grade || 'Non spécifié'}</p>
+                        <p className="text-gray-900 bg-gray-50 px-4 py-3 rounded-lg">{profile.grade || 'Non spécifié'}</p>
                       )}
                     </div>
 
                     <div>
                       <label className="block text-sm font-medium text-slate-300 mb-2">
-                        Établissement <span className="text-guinea-red">*</span>
+                        Établissement <span className="text-red-500">*</span>
                       </label>
                       {editMode ? (
                         <div>
@@ -639,7 +534,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ onBack, setSidebarOpen 
                             type="text"
                             value={profile.etablissement}
                             onChange={(e) => handleInputChange('etablissement', e.target.value)}
-                            className={`w-full px-4 py-3 bg-slate-700/50 border rounded-lg text-white placeholder-slate-400 focus:ring-2 focus:ring-guinea-green focus:border-guinea-green transition-all ${
+                            className={`w-full px-4 py-3 bg-white border rounded-lg text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${
                               formErrors.etablissement ? 'border-red-500' : 'border-slate-600'
                             }`}
                             placeholder="Nom de votre établissement"
@@ -649,23 +544,23 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ onBack, setSidebarOpen 
                           )}
                         </div>
                       ) : (
-                        <p className="text-white bg-slate-700/30 px-4 py-3 rounded-lg">{profile.etablissement || 'Non spécifié'}</p>
+                        <p className="text-gray-900 bg-gray-50 px-4 py-3 rounded-lg">{profile.etablissement || 'Non spécifié'}</p>
                       )}
                     </div>
                   </div>
                 </div>
 
                 {/* Location Information */}
-                <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 border border-slate-700/50">
-                  <h2 className="text-xl font-bold text-white mb-6 flex items-center">
-                    <MapPin className="h-6 w-6 mr-3 text-guinea-green" />
+                <div className="bg-white rounded-xl p-6 border border-gray-200">
+                  <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
+                    <MapPin className="h-6 w-6 mr-3 text-blue-600" />
                     Localisation
                   </h2>
                   
                   <div className="space-y-6">
                     <div>
                       <label className="block text-sm font-medium text-slate-300 mb-2">
-                        Région <span className="text-guinea-red">*</span>
+                        Région <span className="text-red-500">*</span>
                       </label>
                       {editMode ? (
                         <div>
@@ -675,20 +570,20 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ onBack, setSidebarOpen 
                             isClearable
                             onChange={(selectedOption) => handleSelectChange('regionId', selectedOption)}
                             value={profile.regionId ? { value: profile.regionId, label: profile.region } : null}
-                            className="bg-slate-700/50 border-slate-600 text-white"
+                            className="bg-white border-gray-300 text-gray-900"
                           />
                           {formErrors.regionId && (
                             <p className="text-red-400 text-sm mt-1">{formErrors.regionId}</p>
                           )}
                         </div>
                       ) : (
-                        <p className="text-white bg-slate-700/30 px-4 py-3 rounded-lg">{profile.region || 'Non spécifié'}</p>
+                        <p className="text-gray-900 bg-gray-50 px-4 py-3 rounded-lg">{profile.region || 'Non spécifié'}</p>
                       )}
                     </div>
 
                     <div>
                       <label className="block text-sm font-medium text-slate-300 mb-2">
-                        Ville <span className="text-guinea-red">*</span>
+                        Ville <span className="text-red-500">*</span>
                       </label>
                       {editMode ? (
                         <div>
@@ -698,14 +593,14 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ onBack, setSidebarOpen 
                             isClearable
                             onChange={(selectedOption) => handleSelectChange('villeId', selectedOption)}
                             value={profile.villeId ? { value: profile.villeId, label: profile.ville } : null}
-                            className="bg-slate-700/50 border-slate-600 text-white"
+                            className="bg-white border-gray-300 text-gray-900"
                           />
                           {formErrors.villeId && (
                             <p className="text-red-400 text-sm mt-1">{formErrors.villeId}</p>
                           )}
                         </div>
                       ) : (
-                        <p className="text-white bg-slate-700/30 px-4 py-3 rounded-lg">{profile.ville || 'Non spécifié'}</p>
+                        <p className="text-gray-900 bg-gray-50 px-4 py-3 rounded-lg">{profile.ville || 'Non spécifié'}</p>
                       )}
                     </div>
                   </div>
@@ -713,16 +608,6 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ onBack, setSidebarOpen 
               </div>
             </div>
           </div>
-        </main>
-      </div>
-
-      {/* Mobile Sidebar Overlay */}
-      {sidebarOpen && (
-        <div 
-          className="lg:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-20"
-          onClick={() => setSidebarOpenLocal(false)}
-        />
-      )}
     </div>
   );
 };
